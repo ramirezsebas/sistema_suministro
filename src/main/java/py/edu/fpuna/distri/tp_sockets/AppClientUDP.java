@@ -11,6 +11,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import py.edu.fpuna.distri.tp_sockets.data.models.OperacionDto;
+import py.edu.fpuna.distri.tp_sockets.data.models.SuministroModel;
 
 public class AppClientUDP {
     public static void main(String[] args) {
@@ -70,11 +71,13 @@ public class AppClientUDP {
             try {
                 clientSocket.receive(receivePacket);
 
-                String respuesta = new String(receivePacket.getData());
+                String respuesta = new String(receivePacket.getData()).trim();
 
-                System.out.println("Respuesta del servidor = " + IPAddress + ":" + puertoServidor + " via UDP...");
+                System.out.println("Respuesta del servidor = " + IPAddress + ":" + puertoServidor + " via UDP... " + respuesta);
 
-                System.out.println(respuesta);
+                SuministroModel suministro = SuministroModel.fromJson(respuesta);
+
+                System.out.println(suministro.toString());
 
             } catch (SocketTimeoutException ste) {
                 System.out.println("No se recibió respuesta del servidor = " + IPAddress + ":" + puertoServidor

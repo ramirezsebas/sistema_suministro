@@ -14,7 +14,6 @@ public class SuministroModel {
     }
 
     public static SuministroModel fromJson(String json) {
-        System.out.println(json);
         return new Gson().fromJson(json, SuministroModel.class);
     }
 
