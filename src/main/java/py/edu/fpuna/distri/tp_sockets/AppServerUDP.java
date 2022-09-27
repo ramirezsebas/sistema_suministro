@@ -36,12 +36,10 @@ public class AppServerUDP {
                 System.out.println("________________________________________________");
                 System.out.println("Request: " + request);
 
-                OperacionDto operacionDto = OperacionDto.fromJson(request);
+                OperacionDto operacionDto = OperacionDto.fromJson(request.trim());
 
                 int tipoOperacion = operacionDto.getIdOperacion();
                 String nis = operacionDto.getNis();
-
-                
 
             }
 
