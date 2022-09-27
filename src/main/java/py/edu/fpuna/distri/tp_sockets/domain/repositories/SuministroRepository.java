@@ -8,7 +8,7 @@ import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 public interface SuministroRepository {
     public Suministro registrarConsumo(String nis);
 
-    public void verificarConectividad(String nis);
+    public boolean verificarConectividad(String nis);
 
     public void enviarOrdenDesconexion(String nis);
 
