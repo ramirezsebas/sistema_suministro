@@ -10,9 +10,9 @@ public interface SuministroRepository {
 
     public boolean verificarConectividad(String nis);
 
-    public void enviarOrdenDesconexion(String nis);
+    public Suministro enviarOrdenDesconexion(String nis);
 
-    public void enviarOrdenConexion(String nis);
+    public Suministro enviarOrdenConexion(String nis);
 
     public List<Suministro> listarSuministrosActivos();
 
