@@ -1,17 +1,12 @@
 package py.edu.fpuna.distri.tp_sockets.domain.entities;
 
-enum Estado {
-    ACTIVO,
-    INACTIVO,
-}
-
 public class Suministro {
     private String nis;
     private double consumo;
     private double deuda;
-    private Estado estado;
+    private EstadoActual estado;
 
-    public Suministro(String nis, double consumo, double deuda, Estado estado) {
+    public Suministro(String nis, double consumo, double deuda, EstadoActual estado) {
         this.nis = nis;
         this.consumo = consumo;
         this.deuda = deuda;
@@ -42,11 +37,11 @@ public class Suministro {
         this.deuda = deuda;
     }
 
-    public Estado getEstado() {
+    public EstadoActual getEstado() {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
+    public void setEstado(EstadoActual estado) {
         this.estado = estado;
     }
 
