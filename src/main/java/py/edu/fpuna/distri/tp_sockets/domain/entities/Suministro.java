@@ -2,12 +2,14 @@ package py.edu.fpuna.distri.tp_sockets.domain.entities;
 
 public class Suministro {
     private String nis;
+    private String usuario;
     private double consumo;
     private double deuda;
     private EstadoActual estado;
 
-    public Suministro(String nis, double consumo, double deuda, EstadoActual estado) {
+    public Suministro(String nis, String usuario, double consumo, double deuda, EstadoActual estado) {
         this.nis = nis;
+        this.usuario = usuario;
         this.consumo = consumo;
         this.deuda = deuda;
         this.estado = estado;
@@ -19,6 +21,14 @@ public class Suministro {
 
     public void setNis(String nis) {
         this.nis = nis;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public double getConsumo() {
