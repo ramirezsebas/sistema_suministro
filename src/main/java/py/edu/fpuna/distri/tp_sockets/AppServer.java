@@ -1,6 +1,7 @@
 package py.edu.fpuna.distri.tp_sockets;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import py.edu.fpuna.distri.tp_sockets.data.repositories.MockSuministroRepository;
@@ -30,7 +31,9 @@ public class AppServer {
 
             // Verificar Conectividad
             case 2:
-                suministroRepository.verificarConectividad(nis);
+                boolean isConnected = suministroRepository.verificarConectividad(nis);
+                System.out.println("El suministro esta conectado: " + isConnected);
+
                 break;
 
             // Enviar Orden de Desconexion
@@ -45,12 +48,19 @@ public class AppServer {
 
             // Listar Suministros Activos
             case 5:
-                suministroRepository.listarSuministrosActivos();
+                List<Suministro> suministros = suministroRepository.listarSuministrosActivos();
+                for (Suministro suministro2 : suministros) {
+                    System.out.println(suministro2);
+                }
                 break;
 
             // Listar Suministros Inactivos
             case 6:
-                suministroRepository.listarSuministrosInactivos();
+                List<Suministro> suministrosInactivos = suministroRepository.listarSuministrosInactivos();
+                for (Suministro suministro2 : suministrosInactivos) {
+                    System.out.println(suministro2);
+                }
+
                 break;
 
             default:
