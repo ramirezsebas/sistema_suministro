@@ -1,6 +1,7 @@
 package py.edu.fpuna.distri.tp_sockets.data.repositories;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -79,42 +80,66 @@ public class MockSuministroRepositoryTest {
         assertEquals(conectividad, true);
     }
 
-    // @Test
-    // public void enviarOrdenDesconexionDeberiaRetornarFalseEnCasoNoExiste() {
-    // Map<String, Suministro> bdLocal = new HashMap<>();
-    // SuministroRepository mockSuministroRepository = new
-    // MockSuministroRepository(bdLocal);
+    @Test
+    public void enviarOrdenDesconexionDeberiaRetornarNuloEnCasoNoExiste() {
+        Map<String, Suministro> bdLocal = new HashMap<>();
+        SuministroRepository mockSuministroRepository = new MockSuministroRepository(bdLocal);
 
-    // boolean orden = mockSuministroRepository.enviarOrdenDesconexion("123456789");
+        Suministro orden = mockSuministroRepository.enviarOrdenDesconexion("123456789");
 
-    // assertEquals(orden, false);
-    // }
+        // Deuda should be null
+        assertNull(orden);
+    }
 
-    // @Test
-    // public void enviarOrdenDesconexionDeberiaRetornarTrueEnCasoExiste() {
-    // Suministro suministroSeleccionado = new Suministro("123456789", "Juan Perez",
-    // 100, 100.0, EstadoActual.ACTIVO);
-    // List<Suministro> suministros = new ArrayList<>();
-    // suministros.add(suministroSeleccionado);
-    // suministros.add(new Suministro("987654323421", "Maria Lopez", 234, 200,
-    // EstadoActual.ACTIVO));
-    // suministros.add(new Suministro("15423456789", "Juan Perez", 54353, 100,
-    // EstadoActual.ACTIVO));
-    // suministros.add(new Suministro("98743534654321", "Maria Lopez", 345543, 200,
-    // EstadoActual.ACTIVO));
+    @Test
+    public void enviarOrdenDesconexionDeberiaRetornarSuministroEnCasoExiste() {
+        Suministro suministroSeleccionado = new Suministro("123456789", "Juan Perez",
+                100, 100.0, EstadoActual.ACTIVO);
+        List<Suministro> suministros = new ArrayList<>();
+        suministros.add(suministroSeleccionado);
+        suministros.add(new Suministro("987654323421", "Maria Lopez", 234, 200,
+                EstadoActual.ACTIVO));
+        suministros.add(new Suministro("15423456789", "Juan Perez", 54353, 100,
+                EstadoActual.ACTIVO));
+        suministros.add(new Suministro("98743534654321", "Maria Lopez", 345543, 200,
+                EstadoActual.ACTIVO));
 
-    // Map<String, Suministro> bdLocal = new HashMap<>();
-    // for (Suministro suministro : suministros) {
-    // bdLocal.put(suministro.getNis(), suministro);
-    // }
+        Map<String, Suministro> bdLocal = new HashMap<>();
+        for (Suministro suministro : suministros) {
+            bdLocal.put(suministro.getNis(), suministro);
+        }
 
-    // SuministroRepository mockSuministroRepository = new
-    // MockSuministroRepository(bdLocal);
+        SuministroRepository mockSuministroRepository = new MockSuministroRepository(bdLocal);
 
-    // boolean orden = mockSuministroRepository.enviarOrdenDesconexion("123456789");
+        Suministro orden = mockSuministroRepository.enviarOrdenDesconexion("123456789");
 
-    // assertEquals(orden, true);
-    // }
+        assertNotNull("El suministro tiene desconexion", orden);
+    }
+    
+    @Test
+    public void enviarOrdenDesconexionDeberiaRetornarNuloEnCasoExistePeroSinDeuda() {
+        Suministro suministroSeleccionado = new Suministro("123456789", "Juan Perez",
+                100, 0, EstadoActual.ACTIVO);
+        List<Suministro> suministros = new ArrayList<>();
+        suministros.add(suministroSeleccionado);
+        suministros.add(new Suministro("987654323421", "Maria Lopez", 234, 200,
+                EstadoActual.ACTIVO));
+        suministros.add(new Suministro("15423456789", "Juan Perez", 54353, 100,
+                EstadoActual.ACTIVO));
+        suministros.add(new Suministro("98743534654321", "Maria Lopez", 345543, 200,
+                EstadoActual.ACTIVO));
+
+        Map<String, Suministro> bdLocal = new HashMap<>();
+        for (Suministro suministro : suministros) {
+            bdLocal.put(suministro.getNis(), suministro);
+        }
+
+        SuministroRepository mockSuministroRepository = new MockSuministroRepository(bdLocal);
+
+        Suministro orden = mockSuministroRepository.enviarOrdenDesconexion("123456789");
+
+        assertNull("El suministro tiene conexion", orden);
+    }
 
     @Test
     public void listarSuministrosActivosDeberiaRetornarLista() {

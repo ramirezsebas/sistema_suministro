@@ -39,20 +39,41 @@ public class MockSuministroRepository implements SuministroRepository {
     }
 
     @Override
-    public void enviarOrdenDesconexion(String nis) {
-        // TODO Auto-generated method stub
+    public Suministro enviarOrdenDesconexion(String nis) {
+        Suministro suministro = getSuministro(nis);
+
+        if (suministro == null) {
+            return null;
+        }
+
+        if (suministro.getDeuda() <= 0) {
+            return null;
+        }
+
+        return suministro;
 
     }
 
     @Override
-    public void enviarOrdenConexion(String nis) {
-        // TODO Auto-generated method stub
+    public Suministro enviarOrdenConexion(String nis) {
+
+        Suministro suministro = getSuministro(nis);
+
+        if (suministro == null) {
+            return null;
+        }
+
+        if (suministro.getDeuda() > 0) {
+            return null;
+        }
+
+        return suministro;
 
     }
 
     @Override
     public List<Suministro> listarSuministrosInactivos() {
-        List<Suministro> allSuministros = bdLocal.values().stream().toList();
+        List<Suministro> allSuministros = getAllSuministros();
 
         List<Suministro> suministrosInactivos = new ArrayList<>();
 
@@ -67,7 +88,7 @@ public class MockSuministroRepository implements SuministroRepository {
 
     @Override
     public List<Suministro> listarSuministrosActivos() {
-        List<Suministro> allSuministros = bdLocal.values().stream().toList();
+        List<Suministro> allSuministros = getAllSuministros();
 
         List<Suministro> suministrosActivos = new ArrayList<>();
 
@@ -78,6 +99,10 @@ public class MockSuministroRepository implements SuministroRepository {
         }
 
         return suministrosActivos;
+    }
+
+    private List<Suministro> getAllSuministros() {
+        return bdLocal.values().stream().toList();
     }
 
 }
