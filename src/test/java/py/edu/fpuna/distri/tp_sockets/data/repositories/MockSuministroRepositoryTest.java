@@ -12,7 +12,6 @@ import org.junit.Test;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.EstadoActual;
 
-import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 import py.edu.fpuna.distri.tp_sockets.domain.repositories.SuministroRepository;
 
 public class MockSuministroRepositoryTest {
