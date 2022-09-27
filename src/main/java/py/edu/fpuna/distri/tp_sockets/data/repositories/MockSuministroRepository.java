@@ -1,8 +1,10 @@
 package py.edu.fpuna.distri.tp_sockets.data.repositories;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import py.edu.fpuna.distri.tp_sockets.domain.entities.EstadoActual;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 import py.edu.fpuna.distri.tp_sockets.domain.repositories.SuministroRepository;
 
@@ -28,9 +30,12 @@ public class MockSuministroRepository implements SuministroRepository {
     }
 
     @Override
-    public void verificarConectividad(String nis) {
-        // TODO Auto-generated method stub
-
+    public boolean verificarConectividad(String nis) {
+        Suministro suministro = getSuministro(nis);
+        if (suministro == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -46,15 +51,33 @@ public class MockSuministroRepository implements SuministroRepository {
     }
 
     @Override
-    public List<Suministro> listarSuministrosActivos() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Suministro> listarSuministrosInactivos() {
+        List<Suministro> allSuministros = bdLocal.values().stream().toList();
+
+        List<Suministro> suministrosInactivos = new ArrayList<>();
+
+        for (Suministro suministro : allSuministros) {
+            if (suministro.getEstado() == EstadoActual.INACTIVO) {
+                suministrosInactivos.add(suministro);
+            }
+        }
+
+        return suministrosInactivos;
     }
 
     @Override
-    public List<Suministro> listarSuministrosInactivos() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Suministro> listarSuministrosActivos() {
+        List<Suministro> allSuministros = bdLocal.values().stream().toList();
+
+        List<Suministro> suministrosActivos = new ArrayList<>();
+
+        for (Suministro suministro : allSuministros) {
+            if (suministro.getEstado() == EstadoActual.ACTIVO) {
+                suministrosActivos.add(suministro);
+            }
+        }
+
+        return suministrosActivos;
     }
 
 }
