@@ -7,10 +7,6 @@ import py.edu.fpuna.distri.tp_sockets.data.repositories.MockSuministroRepository
 import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 import py.edu.fpuna.distri.tp_sockets.domain.repositories.SuministroRepository;
 
-/**
- * Hello world!
- *
- */
 public class AppServer {
     public static void main(String[] args) {
         Map<String, Suministro> bdLocal = new HashMap<>();
