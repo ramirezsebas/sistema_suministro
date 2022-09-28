@@ -1,4 +1,4 @@
-package py.edu.fpuna.distri.tp_sockets;
+package py.edu.fpuna.distri.tp_sockets.udp;
 
 import java.io.BufferedReader;
 import java.io.IOException;
