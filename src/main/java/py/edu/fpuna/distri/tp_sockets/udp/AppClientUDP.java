@@ -10,9 +10,6 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenResponse;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroResponse;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
 import py.edu.fpuna.distri.tp_sockets.utils.ClientOperacion;
 import py.edu.fpuna.distri.tp_sockets.utils.EnviarOrdenClientStrategy;
 import py.edu.fpuna.distri.tp_sockets.utils.ListarSuministroClientStrategy;
@@ -22,7 +19,6 @@ import py.edu.fpuna.distri.tp_sockets.utils.UIConsole;
 
 public class AppClientUDP {
     public static void main(String[] args) {
-        // Datos necesario
         String direccionServidor = "127.0.0.1";
 
         if (args.length > 0) {
@@ -37,7 +33,9 @@ public class AppClientUDP {
 
         try {
             DatagramSocket clientSocket = new DatagramSocket();
+
             InetAddress IPAddress = InetAddress.getByName(direccionServidor);
+
             uiConsole.connecting(IPAddress, puertoServidor, "UDP");
 
             byte[] sendData = new byte[1024];
@@ -45,12 +43,11 @@ public class AppClientUDP {
 
             uiConsole.insertOperation();
 
-            String tipoOperacion = inFromUser.readLine();
-            int parseIdOperacion = Integer.parseInt(tipoOperacion);
+            int tipoOperacion = Integer.parseInt(inFromUser.readLine());
 
-            ClientOperacion clientOperacion = new ClientOperacion(parseIdOperacion);
+            ClientOperacion clientOperacion = new ClientOperacion(tipoOperacion);
 
-            TipoOperacionClientStrategy tipoOperacionClientStrategy = getStrategy(parseIdOperacion);
+            TipoOperacionClientStrategy tipoOperacionClientStrategy = getStrategy(tipoOperacion);
 
             String jsonDto = clientOperacion.getDto(tipoOperacionClientStrategy);
 
@@ -94,17 +91,17 @@ public class AppClientUDP {
 
     }
 
-    private static TipoOperacionClientStrategy getStrategy(int parseIdOperacion) throws IOException {
+    private static TipoOperacionClientStrategy getStrategy(int tipoOperacion) throws IOException {
 
         TipoOperacionClientStrategy strategy = null;
 
-        if (parseIdOperacion == 1) {
+        if (tipoOperacion == 1) {
             strategy = new RegistrarConsumoClientStrategy();
-        } else if (parseIdOperacion == 4) {
+        } else if (tipoOperacion == 4) {
             strategy = new EnviarOrdenClientStrategy();
-        } else if (parseIdOperacion == 5) {
+        } else if (tipoOperacion == 5) {
             strategy = new ListarSuministroClientStrategy();
-        } else if (parseIdOperacion == 6) {
+        } else if (tipoOperacion == 6) {
             strategy = new ListarSuministroClientStrategy();
         }
 

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
@@ -16,46 +17,54 @@ import py.edu.fpuna.distri.tp_sockets.utils.UIConsole;
 
 public class AppClientTCP {
     public static void main(String[] args) {
-        Socket unSocket = null;
-        PrintWriter out = null;
-        BufferedReader in = null;
+        String direccionServidor = "127.0.0.1";
+
+        if (args.length > 0) {
+            direccionServidor = args[0];
+        }
+
+        int puertoServidor = 9876;
 
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
+
         UIConsole uiConsole = new UIConsole();
 
         try {
-            unSocket = new Socket("127.0.0.1", 9876);
-            // enviamos nosotros
-            out = new PrintWriter(unSocket.getOutputStream(), true);
+            Socket mySocket = new Socket(direccionServidor, puertoServidor);
 
-            // viene del servidor
-            in = new BufferedReader(new InputStreamReader(unSocket.getInputStream()));
+            InetAddress IPAddress = InetAddress.getByName(direccionServidor);
+
+            uiConsole.connecting(IPAddress, puertoServidor, "TCP");
+
+            PrintWriter out = new PrintWriter(mySocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
 
             uiConsole.insertOperation();
 
-            String tipoOperacion = inFromUser.readLine();
-            int parseIdOperacion = Integer.parseInt(tipoOperacion);
+            int tipoOperacion = Integer.parseInt(inFromUser.readLine());
 
-            ClientOperacion clientOperacion = new ClientOperacion(parseIdOperacion);
+            ClientOperacion clientOperacion = new ClientOperacion(tipoOperacion);
 
-            TipoOperacionClientStrategy tipoOperacionClientStrategy = getStrategy(parseIdOperacion);
+            TipoOperacionClientStrategy tipoOperacionClientStrategy = getStrategy(tipoOperacion);
 
             String jsonDto = clientOperacion.getDto(tipoOperacionClientStrategy);
 
-            // enviamos un mensaje al servidor
+            uiConsole.sendInfo(IPAddress, puertoServidor, "TCP");
+
             out.println(jsonDto);
 
-            // leemos la respuesta del servidor
+            uiConsole.waitInfo(IPAddress, puertoServidor, "TCP");
+
             String respuesta = in.readLine();
 
-            System.out.println("Respuesta del servidor: " + respuesta);
+            uiConsole.sendData(IPAddress, puertoServidor, "TCP", respuesta);
 
-            // cerramos la conexion
+            
             out.close();
 
             in.close();
 
-            unSocket.close();
+            mySocket.close();
 
         } catch (UnknownHostException e) {
             System.err.println("Host desconocido");
@@ -67,17 +76,17 @@ public class AppClientTCP {
 
     }
 
-    private static TipoOperacionClientStrategy getStrategy(int parseIdOperacion) throws IOException {
+    private static TipoOperacionClientStrategy getStrategy(int tipoOperacion) throws IOException {
 
         TipoOperacionClientStrategy strategy = null;
 
-        if (parseIdOperacion == 1) {
+        if (tipoOperacion == 1) {
             strategy = new RegistrarConsumoClientStrategy();
-        } else if (parseIdOperacion == 4) {
+        } else if (tipoOperacion == 4) {
             strategy = new EnviarOrdenClientStrategy();
-        } else if (parseIdOperacion == 5) {
+        } else if (tipoOperacion == 5) {
             strategy = new ListarSuministroClientStrategy();
-        } else if (parseIdOperacion == 6) {
+        } else if (tipoOperacion == 6) {
             strategy = new ListarSuministroClientStrategy();
         }
 
