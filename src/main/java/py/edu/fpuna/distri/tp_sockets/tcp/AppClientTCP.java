@@ -36,7 +36,11 @@ public class AppClientTCP {
             String tipoOperacion = inFromUser.readLine();
             int parseIdOperacion = Integer.parseInt(tipoOperacion);
 
-            String jsonDto = getDto(parseIdOperacion);
+            ClientOperacion clientOperacion = new ClientOperacion(parseIdOperacion);
+
+            TipoOperacionClientStrategy tipoOperacionClientStrategy = getStrategy(parseIdOperacion);
+
+            String jsonDto = clientOperacion.getDto(tipoOperacionClientStrategy);
 
             // enviamos un mensaje al servidor
             out.println(jsonDto);
@@ -63,8 +67,8 @@ public class AppClientTCP {
 
     }
 
-    private static String getDto(int parseIdOperacion) throws IOException {
-        ClientOperacion clientOperacion = new ClientOperacion(parseIdOperacion);
+    private static TipoOperacionClientStrategy getStrategy(int parseIdOperacion) throws IOException {
+
         TipoOperacionClientStrategy strategy = null;
 
         if (parseIdOperacion == 1) {
@@ -77,7 +81,6 @@ public class AppClientTCP {
             strategy = new ListarSuministroClientStrategy();
         }
 
-        String jsonDto = clientOperacion.getDto(strategy);
-        return jsonDto;
+        return strategy;
     }
 }

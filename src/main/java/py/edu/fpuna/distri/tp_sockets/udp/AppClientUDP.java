@@ -48,7 +48,11 @@ public class AppClientUDP {
             String tipoOperacion = inFromUser.readLine();
             int parseIdOperacion = Integer.parseInt(tipoOperacion);
 
-            String jsonDto = getDto(parseIdOperacion);
+            ClientOperacion clientOperacion = new ClientOperacion(parseIdOperacion);
+
+            TipoOperacionClientStrategy tipoOperacionClientStrategy = getStrategy(parseIdOperacion);
+
+            String jsonDto = clientOperacion.getDto(tipoOperacionClientStrategy);
 
             sendData = jsonDto.getBytes();
 
@@ -71,47 +75,8 @@ public class AppClientUDP {
 
                 uiConsole.sendData(IPAddress, puertoServidor, "UDP", respuesta);
 
-                if (parseIdOperacion == 1) {
-                    RegistrarConsumoResponse response = RegistrarConsumoResponse.fromJson(respuesta);
-                    if (response.getData() == null) {
-                        System.out.println("No se pudo registrar el consumo, no existe el suministro");
-                    } else {
-                        System.out.println("Consumo registrado con exito");
-                    }
-                } else if (parseIdOperacion == 2) {
-                    System.out.println("Verificacion de conectividad realizada con exito");
-                } else if (parseIdOperacion == 3) {
-                    EnviarOrdenResponse response = EnviarOrdenResponse.fromJson(respuesta);
-                    if (response.getData() == null) {
-                        System.out.println(
-                                "No se pudo enviar la orden, no existe el suministro o el sumninistro no tiene desconexion");
-                    } else {
-                        System.out.println("Orden enviada con exito");
-                    }
-                } else if (parseIdOperacion == 4) {
-                    EnviarOrdenResponse response = EnviarOrdenResponse.fromJson(respuesta);
-                    if (response.getData() == null) {
-                        System.out.println(
-                                "No se pudo enviar la orden, no existe el suministro o el sumninistro no tiene conexion");
-                    } else {
-                        System.out.println("Orden enviada con exito");
-                    }
-                } else if (parseIdOperacion == 5) {
-                    ListarSuministroResponse response = ListarSuministroResponse.fromJson(respuesta);
-                    if (response.getData().size() == 0) {
-                        System.out.println("No se encontraron suministros activos");
-                    } else {
-                        System.out.println("Listado de suministros activos");
-                    }
+                clientOperacion.getRespuesta(tipoOperacionClientStrategy, respuesta);
 
-                } else if (parseIdOperacion == 6) {
-                    ListarSuministroResponse response = ListarSuministroResponse.fromJson(respuesta);
-                    if (response.getData().size() == 0) {
-                        System.out.println("No se encontraron suministros inactivos");
-                    } else {
-                        System.out.println("Listado de suministros inactivos");
-                    }
-                }
             } catch (SocketTimeoutException ste) {
                 uiConsole.noResponse(IPAddress, puertoServidor, "UDP");
             }
@@ -129,8 +94,8 @@ public class AppClientUDP {
 
     }
 
-    private static String getDto(int parseIdOperacion) throws IOException {
-        ClientOperacion clientOperacion = new ClientOperacion(parseIdOperacion);
+    private static TipoOperacionClientStrategy getStrategy(int parseIdOperacion) throws IOException {
+
         TipoOperacionClientStrategy strategy = null;
 
         if (parseIdOperacion == 1) {
@@ -143,7 +108,6 @@ public class AppClientUDP {
             strategy = new ListarSuministroClientStrategy();
         }
 
-        String jsonDto = clientOperacion.getDto(strategy);
-        return jsonDto;
+        return strategy;
     }
 }

@@ -12,4 +12,8 @@ public class ClientOperacion {
     public String getDto(TipoOperacionClientStrategy strategy) throws IOException {
         return strategy.getDto(this.tipoOperacion);
     }
+
+    public void getRespuesta(TipoOperacionClientStrategy strategy, String respuesta) throws IOException {
+        strategy.getRespuesta(respuesta);
+    }
 }

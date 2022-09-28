@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenDto;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
 
 public class EnviarOrdenClientStrategy implements TipoOperacionClientStrategy {
     UIConsole uiConsole = new UIConsole();
@@ -17,5 +18,15 @@ public class EnviarOrdenClientStrategy implements TipoOperacionClientStrategy {
         EnviarOrdenDto enviarOrdenDto = new EnviarOrdenDto(tipoOperacion, nis);
 
         return enviarOrdenDto.toJson();
+    }
+
+    @Override
+    public void getRespuesta(String respuesta) throws IOException {
+        RegistrarConsumoResponse response = RegistrarConsumoResponse.fromJson(respuesta);
+        if (response.getData() == null) {
+            System.out.println("No se pudo registrar el consumo, no existe el suministro");
+        } else {
+            System.out.println("Consumo registrado con exito");
+        }
     }
 }
