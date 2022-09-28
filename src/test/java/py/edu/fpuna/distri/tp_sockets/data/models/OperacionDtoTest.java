@@ -2,12 +2,14 @@ package py.edu.fpuna.distri.tp_sockets.data.models;
 
 import org.junit.Test;
 
+import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
+
 public class OperacionDtoTest {
     @Test
     public void convertirOperacionDtoAJson() {
         String jsonExpected = "{\"idOperacion\":1,\"nis\":\"123456789\"}";
-        OperacionDto operacionDto = new OperacionDto(1, "123456789");
-        String json = operacionDto.toJson();
+        RegistrarConsumoDto registrarConsumoDto = new RegistrarConsumoDto(1, "123456789");
+        String json = registrarConsumoDto.toJson();
 
         assert json.equals(jsonExpected);
     }
@@ -15,9 +17,9 @@ public class OperacionDtoTest {
     @Test
     public void convertirJsonAOperacionDto() {
         String json = "{\"idOperacion\":1,\"nis\":\"123456789\"}";
-        OperacionDto operacionDto = OperacionDto.fromJson(json);
+        RegistrarConsumoDto registrarConsumoDto = RegistrarConsumoDto.fromJson(json);
 
-        assert operacionDto.getIdOperacion() == 1;
-        assert operacionDto.getNis().equals("123456789");
+        assert registrarConsumoDto.getIdOperacion() == 1;
+        assert registrarConsumoDto.getNis().equals("123456789");
     }
 }

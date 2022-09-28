@@ -1,21 +1,18 @@
-package py.edu.fpuna.distri.tp_sockets.data.models;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+package py.edu.fpuna.distri.tp_sockets.data.mappers;
 
 import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
 
-public class OperacionDto {
+public class RegistrarConsumoDto {
     int idOperacion;
     String nis;
 
-    public OperacionDto(int idOperacion, String nis) {
+    public RegistrarConsumoDto(int idOperacion, String nis) {
         this.idOperacion = idOperacion;
         this.nis = nis;
     }
 
-    public static OperacionDto fromJson(String json) {
-        return JsonUtil.fromJson(json, OperacionDto.class);
+    public static RegistrarConsumoDto fromJson(String json) {
+        return JsonUtil.fromJson(json, RegistrarConsumoDto.class);
     }
 
     public String toJson() {

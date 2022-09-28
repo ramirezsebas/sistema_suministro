@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import py.edu.fpuna.distri.tp_sockets.data.models.OperacionDto;
-import py.edu.fpuna.distri.tp_sockets.data.models.SuministroModel;
-import py.edu.fpuna.distri.tp_sockets.data.models.SuministroResponseBuilder;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDataResponse;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
 import py.edu.fpuna.distri.tp_sockets.data.repositories.MockSuministroRepository;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.EstadoActual;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
@@ -66,14 +66,14 @@ public class AppServerUDP {
 
                 serverSocket.receive(receivePacket);
                 String request = new String(receivePacket.getData()).trim();
-                OperacionDto operacionDto = OperacionDto.fromJson(request);
+                RegistrarConsumoDto registrarConsumoDto = RegistrarConsumoDto.fromJson(request);
 
                 System.out.println("________________________________________________");
-                System.out.println("Request del NIS: " + operacionDto.getNis() + " " + request);
+                System.out.println("Request del NIS: " + registrarConsumoDto.getNis() + " " + request);
                 System.out.println();
 
-                int tipoOperacion = operacionDto.getIdOperacion();
-                String nis = operacionDto.getNis();
+                int tipoOperacion = registrarConsumoDto.getIdOperacion();
+                String nis = registrarConsumoDto.getNis();
 
                 InetAddress IPAddress = receivePacket.getAddress();
                 int port = receivePacket.getPort();
@@ -85,16 +85,16 @@ public class AppServerUDP {
 
                         if (suministro == null) {
                             System.out.println("El suministro no existe");
-                            SuministroModel suministroModel = new SuministroModel("ok", 0, tipoOperacion);
+                            RegistrarConsumoResponse suministroModel = new RegistrarConsumoResponse("ok", 0,
+                                    tipoOperacion);
                             sendData = suministroModel.toJson().getBytes();
 
                         } else {
-                            SuministroResponseBuilder suministroResponseBuilder = new SuministroResponseBuilder();
-
-                            suministroResponseBuilder.withNis(suministro.getNis()).withConsumo(suministro.getConsumo());
-
-                            SuministroModel suministroModel = new SuministroModel("ok", 0, tipoOperacion,
-                                    suministroResponseBuilder);
+                            RegistrarConsumoDataResponse registrarConsumoDataResponse = new RegistrarConsumoDataResponse(
+                                    suministro.getNis(), suministro.getConsumo());
+                            RegistrarConsumoResponse suministroModel = new RegistrarConsumoResponse("ok", 0,
+                                    tipoOperacion,
+                                    registrarConsumoDataResponse);
 
                             sendData = suministroModel.toJson().getBytes();
                         }
