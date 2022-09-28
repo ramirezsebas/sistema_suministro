@@ -11,6 +11,7 @@ import java.util.Map;
 
 import py.edu.fpuna.distri.tp_sockets.data.models.OperacionDto;
 import py.edu.fpuna.distri.tp_sockets.data.models.SuministroModel;
+import py.edu.fpuna.distri.tp_sockets.data.models.SuministroResponseBuilder;
 import py.edu.fpuna.distri.tp_sockets.data.repositories.MockSuministroRepository;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.EstadoActual;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
@@ -20,6 +21,7 @@ public class AppServerUDP {
 
     private static Map<String, Suministro> initDB() {
         Map<String, Suministro> bdLocal = new HashMap<>();
+        bdLocal.put("123", new Suministro("123", "Juan Pereria", 1234.56, 0, EstadoActual.ACTIVO));
         bdLocal.put("123456789", new Suministro("132423456789", "Juan Perez", 1234.5, 0, EstadoActual.ACTIVO));
         bdLocal.put("987654321", new Suministro("987634554321", "Maria Ramirez", 10000, 12345.6, EstadoActual.ACTIVO));
         bdLocal.put("123456789", new Suministro("1234567456389", "Juan Sosa", 1234.5, 12345.6, EstadoActual.ACTIVO));
@@ -60,20 +62,20 @@ public class AppServerUDP {
 
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
-                System.out.println("Esperando a algun NIS... ");
+                System.out.println("Esperando peticion de algun NIS... ");
 
                 serverSocket.receive(receivePacket);
                 String request = new String(receivePacket.getData()).trim();
-                System.out.println("________________________________________________");
-                System.out.println("Request: " + request);
-
                 OperacionDto operacionDto = OperacionDto.fromJson(request);
+
+                System.out.println("________________________________________________");
+                System.out.println("Request del NIS: " + operacionDto.getNis() + " " + request);
+                System.out.println();
 
                 int tipoOperacion = operacionDto.getIdOperacion();
                 String nis = operacionDto.getNis();
 
                 InetAddress IPAddress = receivePacket.getAddress();
-
                 int port = receivePacket.getPort();
 
                 switch (tipoOperacion) {
@@ -81,14 +83,30 @@ public class AppServerUDP {
                     case 1:
                         Suministro suministro = suministroRepository.registrarConsumo(nis);
 
-                        SuministroModel suministroModel = new SuministroModel("ok", 0, tipoOperacion);
-                        sendData = suministroModel.toJson().getBytes();
                         if (suministro == null) {
                             System.out.println("El suministro no existe");
+                            SuministroModel suministroModel = new SuministroModel("ok", 0, tipoOperacion);
+                            sendData = suministroModel.toJson().getBytes();
+
                         } else {
-                            System.out.println("El consumo del suministro es: " +
-                                    suministro.getConsumo());
+                            SuministroResponseBuilder suministroResponseBuilder = new SuministroResponseBuilder();
+
+                            suministroResponseBuilder.withNis(suministro.getNis()).withConsumo(suministro.getConsumo());
+
+                            SuministroModel suministroModel = new SuministroModel("ok", 0, tipoOperacion,
+                                    suministroResponseBuilder);
+
+                            sendData = suministroModel.toJson().getBytes();
                         }
+
+                        DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
+
+                        serverSocket.send(sendPacket);
+
+                        System.out.println("Se envio la respuesta al cliente");
+                        System.out.println("________________________________________________");
+                        System.out.println();
+                        System.out.println(new String(sendData).trim());
 
                         break;
 
