@@ -3,6 +3,8 @@ package py.edu.fpuna.distri.tp_sockets.data.models;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
+
 public class OperacionDto {
     int idOperacion;
     String nis;
@@ -13,17 +15,11 @@ public class OperacionDto {
     }
 
     public static OperacionDto fromJson(String json) {
-        Gson gson = new GsonBuilder()
-        .setLenient()
-        .create();
-        return gson.fromJson(json, OperacionDto.class);
+        return JsonUtil.fromJson(json, OperacionDto.class);
     }
 
     public String toJson() {
-        Gson gson = new GsonBuilder()
-        .setLenient()
-        .create();
-        return gson.toJson(this);
+        return JsonUtil.toJson(this);
     }
 
     public int getIdOperacion() {
