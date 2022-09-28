@@ -77,7 +77,7 @@ public class AppClientUDP {
 
                 SuministroModel suministro = SuministroModel.fromJson(respuesta);
 
-                System.out.println(suministro.toString());
+                // System.out.println(suministro.toString());
 
             } catch (SocketTimeoutException ste) {
                 System.out.println("No se recibió respuesta del servidor = " + IPAddress + ":" + puertoServidor
