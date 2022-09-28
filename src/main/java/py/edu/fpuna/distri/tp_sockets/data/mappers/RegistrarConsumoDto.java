@@ -5,10 +5,12 @@ import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
 public class RegistrarConsumoDto {
     int idOperacion;
     String nis;
+    double consumo;
 
-    public RegistrarConsumoDto(int idOperacion, String nis) {
+    public RegistrarConsumoDto(int idOperacion, String nis, double consumo) {
         this.idOperacion = idOperacion;
         this.nis = nis;
+        this.consumo = consumo;
     }
 
     public static RegistrarConsumoDto fromJson(String json) {
@@ -33,6 +35,14 @@ public class RegistrarConsumoDto {
 
     public void setNis(String nis) {
         this.nis = nis;
+    }
+
+    public double getConsumo() {
+        return consumo;
+    }
+
+    public void setConsumo(double consumo) {
+        this.consumo = consumo;
     }
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 
 public interface SuministroRepository {
-    public Suministro registrarConsumo(String nis);
+    public Suministro registrarConsumo(String nis, double consumo);
 
     public boolean verificarConectividad(String nis);
 

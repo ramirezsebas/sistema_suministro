@@ -11,6 +11,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
 
 public class AppClientUDP {
     public static void main(String[] args) {
@@ -45,10 +46,17 @@ public class AppClientUDP {
             String tipoOperacion = inFromUser.readLine();
             System.out.print("Ingrese su NIS: ");
             String nis = inFromUser.readLine();
+            System.out.println();
+
+            System.out.println("Ingrese su consumo: ");
+            String consumo = inFromUser.readLine();
+            System.out.println();
 
             int parseIdOperacion = Integer.parseInt(tipoOperacion);
 
-            RegistrarConsumoDto registrarConsumoDto = new RegistrarConsumoDto(parseIdOperacion, nis);
+            double parsedConsumo = Double.parseDouble(consumo);
+
+            RegistrarConsumoDto registrarConsumoDto = new RegistrarConsumoDto(parseIdOperacion, nis, parsedConsumo);
 
             String jsonDto = registrarConsumoDto.toJson();
 
@@ -75,6 +83,24 @@ public class AppClientUDP {
                 System.out.println(
                         "Respuesta del servidor = " + IPAddress + ":" + puertoServidor + " via UDP... " + respuesta);
 
+                if (parseIdOperacion == 1) {
+                    RegistrarConsumoResponse response = RegistrarConsumoResponse.fromJson(respuesta);
+                    if (response.getData() == null) {
+                        System.out.println("No se pudo registrar el consumo, no existe el suministro");
+                    } else {
+                        System.out.println("Consumo registrado con exito");
+                    }
+                } else if (parseIdOperacion == 2) {
+                    System.out.println("Verificacion de conectividad realizada con exito");
+                } else if (parseIdOperacion == 3) {
+                    System.out.println("Orden de desconexion enviada con exito");
+                } else if (parseIdOperacion == 4) {
+                    System.out.println("Orden de conexion enviada con exito");
+                } else if (parseIdOperacion == 5) {
+                    System.out.println("Listado de suministros activos");
+                } else if (parseIdOperacion == 6) {
+                    System.out.println("Listado de suministros inactivos");
+                }
             } catch (SocketTimeoutException ste) {
                 System.out.println("No se recibió respuesta del servidor = " + IPAddress + ":" + puertoServidor
                         + " via UDP...");

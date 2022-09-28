@@ -23,7 +23,7 @@ public class MockSuministroRepositoryTest {
         Map<String, Suministro> bdLocal = new HashMap<>();
         SuministroRepository mockSuministroRepository = new MockSuministroRepository(bdLocal);
 
-        Suministro suministro = mockSuministroRepository.registrarConsumo("123456789");
+        Suministro suministro = mockSuministroRepository.registrarConsumo("123456789",121321);
 
         assertNull(suministro);
     }
@@ -44,7 +44,7 @@ public class MockSuministroRepositoryTest {
 
         SuministroRepository mockSuministroRepository = new MockSuministroRepository(bdLocal);
 
-        Suministro suministro = mockSuministroRepository.registrarConsumo("123456789");
+        Suministro suministro = mockSuministroRepository.registrarConsumo("123456789",12312);
 
         assertEquals(suministro, suministroSeleccionado);
     }

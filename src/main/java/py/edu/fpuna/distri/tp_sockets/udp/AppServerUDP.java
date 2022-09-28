@@ -81,7 +81,8 @@ public class AppServerUDP {
                 switch (tipoOperacion) {
                     // Registrar Consumo
                     case 1:
-                        Suministro suministro = suministroRepository.registrarConsumo(nis);
+                        double consumo = registrarConsumoDto.getConsumo();
+                        Suministro suministro = suministroRepository.registrarConsumo(nis, consumo);
 
                         if (suministro == null) {
                             System.out.println("El suministro no existe");
