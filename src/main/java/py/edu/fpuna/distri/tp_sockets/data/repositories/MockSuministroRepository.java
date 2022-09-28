@@ -20,12 +20,12 @@ public class MockSuministroRepository implements SuministroRepository {
     }
 
     @Override
-    public Suministro registrarConsumo(String nis) {
+    public Suministro registrarConsumo(String nis,double consumo) {
         Suministro suministro = getSuministro(nis);
         if (suministro == null) {
             return null;
         }
-        suministro.setConsumo(suministro.getConsumo());
+        suministro.setConsumo(consumo);
         return suministro;
     }
 
