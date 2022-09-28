@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenDataResponse;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenResponse;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroResponse;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDataResponse;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
@@ -39,7 +41,7 @@ public class AppServerUDP {
         bdLocal.put("987654321", new Suministro("987654326541", "Enrique Iglesias", 1234.5, 0, EstadoActual.ACTIVO));
         bdLocal.put("123456789", new Suministro("12345678654549", "Arturo Suarez", 1234.5, 0, EstadoActual.ACTIVO));
         bdLocal.put("987654321",
-                new Suministro("987654376544521", "Geronimo Torres", 1234.5, 12345.6, EstadoActual.INACTIVO));
+                new Suministro("999", "Geronimo Torres", 1234.5, 12345.6, EstadoActual.INACTIVO));
         bdLocal.put("123456789",
                 new Suministro("1234567875464569", "Juan Troche", 1234.5, 12345.6, EstadoActual.ACTIVO));
         bdLocal.put("987654321",
@@ -121,12 +123,42 @@ public class AppServerUDP {
 
                     // Enviar Orden de Desconexion
                     case 3:
-                        suministroRepository.enviarOrdenDesconexion(nis);
+                        Suministro suministro1 = suministroRepository.enviarOrdenDesconexion(nis);
+
+                        if (suministro1 == null) {
+                            System.out.println("El suministro no existe");
+                            EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion);
+                            sendData = suministroModel.toJson().getBytes();
+
+                        } else {
+                            EnviarOrdenDataResponse enviarOrdenDataResponse = new EnviarOrdenDataResponse(
+                                    suministro1.getNis(), suministro1.getDeuda());
+
+                            EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion,
+                                    enviarOrdenDataResponse);
+
+                            sendData = suministroModel.toJson().getBytes();
+                        }
                         break;
 
                     // Enviar Orden de Conexion
                     case 4:
-                        suministroRepository.enviarOrdenConexion(nis);
+                        Suministro suministro2 = suministroRepository.enviarOrdenConexion(nis);
+
+                        if (suministro2 == null) {
+                            System.out.println("El suministro no existe");
+                            EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion);
+                            sendData = suministroModel.toJson().getBytes();
+
+                        } else {
+                            EnviarOrdenDataResponse enviarOrdenDataResponse = new EnviarOrdenDataResponse(
+                                    suministro2.getNis(), suministro2.getDeuda());
+
+                            EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion,
+                                    enviarOrdenDataResponse);
+
+                            sendData = suministroModel.toJson().getBytes();
+                        }
                         break;
 
                     // Listar Suministros Activos

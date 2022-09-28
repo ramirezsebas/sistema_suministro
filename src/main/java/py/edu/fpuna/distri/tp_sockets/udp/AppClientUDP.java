@@ -10,7 +10,10 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenDto;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenResponse;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroDto;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroResponse;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
 
@@ -61,6 +64,15 @@ public class AppClientUDP {
                 RegistrarConsumoDto registrarConsumoDto = new RegistrarConsumoDto(parseIdOperacion, nis, parsedConsumo);
 
                 jsonDto = registrarConsumoDto.toJson();
+
+            } else if (parseIdOperacion == 4) {
+                System.out.print("Ingrese su NIS: ");
+                String nis = inFromUser.readLine();
+                System.out.println();
+
+                EnviarOrdenDto enviarOrdenDto = new EnviarOrdenDto(parseIdOperacion, nis);
+
+                jsonDto = enviarOrdenDto.toJson();
             } else if (parseIdOperacion == 5) {
 
                 ListarSuministroDto listarSuministroDto = new ListarSuministroDto(parseIdOperacion);
@@ -108,13 +120,36 @@ public class AppClientUDP {
                 } else if (parseIdOperacion == 2) {
                     System.out.println("Verificacion de conectividad realizada con exito");
                 } else if (parseIdOperacion == 3) {
-                    System.out.println("Orden de desconexion enviada con exito");
+                    EnviarOrdenResponse response = EnviarOrdenResponse.fromJson(respuesta);
+                    if (response.getData() == null) {
+                        System.out.println(
+                                "No se pudo enviar la orden, no existe el suministro o el sumninistro no tiene desconexion");
+                    } else {
+                        System.out.println("Orden enviada con exito");
+                    }
                 } else if (parseIdOperacion == 4) {
-                    System.out.println("Orden de conexion enviada con exito");
+                    EnviarOrdenResponse response = EnviarOrdenResponse.fromJson(respuesta);
+                    if (response.getData() == null) {
+                        System.out.println(
+                                "No se pudo enviar la orden, no existe el suministro o el sumninistro no tiene conexion");
+                    } else {
+                        System.out.println("Orden enviada con exito");
+                    }
                 } else if (parseIdOperacion == 5) {
-                    System.out.println("Listado de suministros activos");
+                    ListarSuministroResponse response = ListarSuministroResponse.fromJson(respuesta);
+                    if (response.getData().size() == 0) {
+                        System.out.println("No se encontraron suministros activos");
+                    } else {
+                        System.out.println("Listado de suministros activos");
+                    }
+
                 } else if (parseIdOperacion == 6) {
-                    System.out.println("Listado de suministros inactivos");
+                    ListarSuministroResponse response = ListarSuministroResponse.fromJson(respuesta);
+                    if (response.getData().size() == 0) {
+                        System.out.println("No se encontraron suministros inactivos");
+                    } else {
+                        System.out.println("Listado de suministros inactivos");
+                    }
                 }
             } catch (SocketTimeoutException ste) {
                 System.out.println("No se recibió respuesta del servidor = " + IPAddress + ":" + puertoServidor
