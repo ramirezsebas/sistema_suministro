@@ -53,26 +53,27 @@ public class AppServerUDP {
     public static void main(String[] args) {
         Map<String, Suministro> bdLocal = AppServerUDP.initDB();
         SuministroRepository suministroRepository = new MockSuministroRepository(bdLocal);
-
         int puertoServidor = 9876;
+
         try {
             DatagramSocket serverSocket = new DatagramSocket(puertoServidor);
+            System.out.println("Servidor escuchando en puerto: " + puertoServidor);
             byte[] receiveData = new byte[1024];
             byte[] sendData = new byte[1024];
 
             while (true) {
                 receiveData = new byte[1024];
-
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
                 System.out.println("Esperando peticion de algun NIS... ");
 
                 serverSocket.receive(receivePacket);
+
                 String request = new String(receivePacket.getData()).trim();
                 RegistrarConsumoDto registrarConsumoDto = RegistrarConsumoDto.fromJson(request);
 
                 System.out.println("________________________________________________");
-                System.out.println("Request del NIS: " + registrarConsumoDto.getNis() + " " + request);
+                System.out.println("Request del NIS: " + request);
                 System.out.println();
 
                 int tipoOperacion = registrarConsumoDto.getIdOperacion();

@@ -52,43 +52,39 @@ public class AppServerTCP {
     }
 
     public static void main(String[] args) {
+        Map<String, Suministro> bdLocal = initDB();
+        SuministroRepository suministroRepository = new MockSuministroRepository(bdLocal);
+        final int puertoServidor = 9876;
 
-        ServerSocket serverSocket = null;
-        Socket clientSocket = null;
-        final int port = 9876;
         int tiempo_procesamiento_miliseg = 2000;
-
-        try {
+        if (args.length > 0) {
             tiempo_procesamiento_miliseg = Integer.parseInt(args[0]);
-        } catch (Exception e1) {
-            System.out.println(
-                    "Se omite el argumento, tiempo de procesamiento " + tiempo_procesamiento_miliseg + ". Ref: " + e1);
         }
 
         try {
-            serverSocket = new ServerSocket(port);
-            System.out.println("Servidor escuchando en puerto: " + port);
-            PrintWriter out = null;
-            BufferedReader in = null;
-            Map<String, Suministro> bdLocal = initDB();
-            SuministroRepository suministroRepository = new MockSuministroRepository(bdLocal);
+            Socket clientSocket = null;
+            ServerSocket serverSocket = new ServerSocket(puertoServidor);
+            System.out.println("Servidor escuchando en puerto: " + puertoServidor);
 
             while (true) {
-                System.out.println("Esperando NIS...");
+                System.out.println("Esperando peticion de algun NIS... ");
                 clientSocket = serverSocket.accept();
 
                 System.out
                         .println("Conexion establecida con el NIS de: "
                                 + clientSocket.getInetAddress().getHostAddress() + ":" + clientSocket.getPort());
 
-                out = new PrintWriter(clientSocket.getOutputStream(), true);
-                in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-                String inputLine, outputLine;
-                inputLine = in.readLine();
-                System.out.println("Request: " + inputLine);
+                String request = in.readLine();
+                String response;
 
-                RegistrarConsumoDto registrarConsumoDto = RegistrarConsumoDto.fromJson(inputLine);
+                System.out.println("________________________________________________");
+                System.out.println("Request del NIS: " + request);
+                System.out.println();
+
+                RegistrarConsumoDto registrarConsumoDto = RegistrarConsumoDto.fromJson(request);
 
                 String nis = registrarConsumoDto.getNis();
 
@@ -104,7 +100,7 @@ public class AppServerTCP {
                             System.out.println("El suministro no existe");
                             RegistrarConsumoResponse suministroModel = new RegistrarConsumoResponse("ok", 0,
                                     tipoOperacion);
-                            outputLine = suministroModel.toJson();
+                            response = suministroModel.toJson();
 
                         } else {
                             RegistrarConsumoDataResponse registrarConsumoDataResponse = new RegistrarConsumoDataResponse(
@@ -113,7 +109,7 @@ public class AppServerTCP {
                                     tipoOperacion,
                                     registrarConsumoDataResponse);
 
-                            outputLine = suministroModel.toJson();
+                            response = suministroModel.toJson();
                         }
 
                         break;
@@ -132,7 +128,7 @@ public class AppServerTCP {
                         if (suministro1 == null) {
                             System.out.println("El suministro no existe");
                             EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion);
-                            outputLine = suministroModel.toJson();
+                            response = suministroModel.toJson();
 
                         } else {
                             EnviarOrdenDataResponse enviarOrdenDataResponse = new EnviarOrdenDataResponse(
@@ -141,7 +137,7 @@ public class AppServerTCP {
                             EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion,
                                     enviarOrdenDataResponse);
 
-                            outputLine = suministroModel.toJson();
+                            response = suministroModel.toJson();
                         }
                         break;
 
@@ -152,7 +148,7 @@ public class AppServerTCP {
                         if (suministro2 == null) {
                             System.out.println("El suministro no existe");
                             EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion);
-                            outputLine = suministroModel.toJson();
+                            response = suministroModel.toJson();
 
                         } else {
                             EnviarOrdenDataResponse enviarOrdenDataResponse = new EnviarOrdenDataResponse(
@@ -161,7 +157,7 @@ public class AppServerTCP {
                             EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion,
                                     enviarOrdenDataResponse);
 
-                            outputLine = suministroModel.toJson();
+                            response = suministroModel.toJson();
                         }
                         break;
 
@@ -172,12 +168,12 @@ public class AppServerTCP {
                         ListarSuministroResponse listarSuministroResponseA = new ListarSuministroResponse("ok", 0,
                                 tipoOperacion, suministros);
 
-                        outputLine = listarSuministroResponseA.toJson();
+                        response = listarSuministroResponseA.toJson();
 
                         System.out.println("Se envio la respuesta al NIS:" + nis);
                         System.out.println("________________________________________________");
                         System.out.println();
-                        System.out.println(new String(outputLine).trim());
+                        System.out.println(new String(response).trim());
 
                         break;
 
@@ -187,12 +183,12 @@ public class AppServerTCP {
                         ListarSuministroResponse listarSuministroResponseI = new ListarSuministroResponse("ok", 0,
                                 tipoOperacion, suministrosInactivos);
 
-                        outputLine = listarSuministroResponseI.toJson();
+                        response = listarSuministroResponseI.toJson();
 
                         System.out.println("Se envio la respuesta al NIS:" + nis);
                         System.out.println("________________________________________________");
                         System.out.println();
-                        System.out.println(new String(outputLine).trim());
+                        System.out.println(new String(response).trim());
 
                         break;
 
@@ -200,14 +196,11 @@ public class AppServerTCP {
                         throw new IllegalArgumentException("Operacion no Valido: " + tipoOperacion);
                 }
 
-                outputLine = "Respuesta igual al recibido: " + inputLine;
+                response = "Respuesta igual al recibido: " + request;
 
                 TimeUnit.MILLISECONDS.sleep(tiempo_procesamiento_miliseg);
 
-                out.println(outputLine);
-
-
-
+                out.println(response);
 
                 clientSocket.close();
 
@@ -216,7 +209,7 @@ public class AppServerTCP {
             }
 
         } catch (IOException e) {
-            System.err.println("No se puede abrir el puerto: " + port);
+            System.err.println("No se puede abrir el puerto: " + puertoServidor);
             System.exit(1);
         } catch (InterruptedException e) {
             System.err.println("Error en el tiempo de procesamiento: " + e.getMessage());
