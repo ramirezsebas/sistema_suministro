@@ -10,6 +10,7 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
+import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
 
@@ -44,21 +45,35 @@ public class AppClientUDP {
             System.out.println();
 
             String tipoOperacion = inFromUser.readLine();
-            System.out.print("Ingrese su NIS: ");
-            String nis = inFromUser.readLine();
-            System.out.println();
-
-            System.out.println("Ingrese su consumo: ");
-            String consumo = inFromUser.readLine();
-            System.out.println();
-
             int parseIdOperacion = Integer.parseInt(tipoOperacion);
+            String jsonDto = null;
 
-            double parsedConsumo = Double.parseDouble(consumo);
+            if (parseIdOperacion == 1) {
+                System.out.print("Ingrese su NIS: ");
+                String nis = inFromUser.readLine();
+                System.out.println();
 
-            RegistrarConsumoDto registrarConsumoDto = new RegistrarConsumoDto(parseIdOperacion, nis, parsedConsumo);
+                System.out.println("Ingrese su consumo: ");
+                String consumo = inFromUser.readLine();
+                System.out.println();
 
-            String jsonDto = registrarConsumoDto.toJson();
+                double parsedConsumo = Double.parseDouble(consumo);
+                RegistrarConsumoDto registrarConsumoDto = new RegistrarConsumoDto(parseIdOperacion, nis, parsedConsumo);
+
+                jsonDto = registrarConsumoDto.toJson();
+            } else if (parseIdOperacion == 5) {
+
+                ListarSuministroDto listarSuministroDto = new ListarSuministroDto(parseIdOperacion);
+
+                jsonDto = listarSuministroDto.toJson();
+
+            } else if (parseIdOperacion == 6) {
+
+                ListarSuministroDto listarSuministroDto = new ListarSuministroDto(parseIdOperacion);
+
+                jsonDto = listarSuministroDto.toJson();
+
+            }
 
             sendData = jsonDto.getBytes();
 

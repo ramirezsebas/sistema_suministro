@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroResponse;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDataResponse;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
@@ -104,7 +105,7 @@ public class AppServerUDP {
 
                         serverSocket.send(sendPacket);
 
-                        System.out.println("Se envio la respuesta al cliente");
+                        System.out.println("Se envio la respuesta al NIS:" + nis);
                         System.out.println("________________________________________________");
                         System.out.println();
                         System.out.println(new String(sendData).trim());
@@ -131,17 +132,31 @@ public class AppServerUDP {
                     // Listar Suministros Activos
                     case 5:
                         List<Suministro> suministros = suministroRepository.listarSuministrosActivos();
-                        for (Suministro suministro2 : suministros) {
-                            System.out.println(suministro2);
-                        }
+
+                        ListarSuministroResponse listarSuministroResponseA = new ListarSuministroResponse("ok", 0,
+                                tipoOperacion, suministros);
+
+                        sendData = listarSuministroResponseA.toJson().getBytes();
+
+                        System.out.println("Se envio la respuesta al NIS:" + nis);
+                        System.out.println("________________________________________________");
+                        System.out.println();
+                        System.out.println(new String(sendData).trim());
+
                         break;
 
                     // Listar Suministros Inactivos
                     case 6:
                         List<Suministro> suministrosInactivos = suministroRepository.listarSuministrosInactivos();
-                        for (Suministro suministro2 : suministrosInactivos) {
-                            System.out.println(suministro2);
-                        }
+                        ListarSuministroResponse listarSuministroResponseI = new ListarSuministroResponse("ok", 0,
+                                tipoOperacion, suministrosInactivos);
+
+                        sendData = listarSuministroResponseI.toJson().getBytes();
+
+                        System.out.println("Se envio la respuesta al NIS:" + nis);
+                        System.out.println("________________________________________________");
+                        System.out.println();
+                        System.out.println(new String(sendData).trim());
 
                         break;
 
