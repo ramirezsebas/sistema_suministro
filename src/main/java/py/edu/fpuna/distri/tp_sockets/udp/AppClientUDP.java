@@ -10,12 +10,15 @@ import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenResponse;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroResponse;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
+import py.edu.fpuna.distri.tp_sockets.utils.ClientOperacion;
+import py.edu.fpuna.distri.tp_sockets.utils.EnviarOrdenClientStrategy;
+import py.edu.fpuna.distri.tp_sockets.utils.ListarSuministroClientStrategy;
+import py.edu.fpuna.distri.tp_sockets.utils.RegistrarConsumoClientStrategy;
+import py.edu.fpuna.distri.tp_sockets.utils.TipoOperacionClientStrategy;
+import py.edu.fpuna.distri.tp_sockets.utils.UIConsole;
 
 public class AppClientUDP {
     public static void main(String[] args) {
@@ -30,66 +33,26 @@ public class AppClientUDP {
 
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
+        UIConsole uiConsole = new UIConsole();
+
         try {
             DatagramSocket clientSocket = new DatagramSocket();
             InetAddress IPAddress = InetAddress.getByName(direccionServidor);
-            System.out.println("Intentando conectar a = " + IPAddress + ":" + puertoServidor + " via UDP...");
+            uiConsole.connecting(IPAddress, puertoServidor, "UDP");
 
             byte[] sendData = new byte[1024];
             byte[] receiveData = new byte[1024];
 
-            System.out.println("1. Registrar Consumo");
-            System.out.println("2. Verificar Conectividad");
-            System.out.println("3. Enviar Orden de Desconexion");
-            System.out.println("4. Enviar Orden de Desconexion");
-            System.out.println("5. Listar Suministros Activos");
-            System.out.println("5. Listar Suministros Inactivos");
-            System.out.print("Ingrese el tipo de operacion (debe ser numérico entre 1 al 6): ");
-            System.out.println();
+            uiConsole.insertOperation();
 
             String tipoOperacion = inFromUser.readLine();
             int parseIdOperacion = Integer.parseInt(tipoOperacion);
-            String jsonDto = null;
 
-            if (parseIdOperacion == 1) {
-                System.out.print("Ingrese su NIS: ");
-                String nis = inFromUser.readLine();
-                System.out.println();
-
-                System.out.println("Ingrese su consumo: ");
-                String consumo = inFromUser.readLine();
-                System.out.println();
-
-                double parsedConsumo = Double.parseDouble(consumo);
-                RegistrarConsumoDto registrarConsumoDto = new RegistrarConsumoDto(parseIdOperacion, nis, parsedConsumo);
-
-                jsonDto = registrarConsumoDto.toJson();
-
-            } else if (parseIdOperacion == 4) {
-                System.out.print("Ingrese su NIS: ");
-                String nis = inFromUser.readLine();
-                System.out.println();
-
-                EnviarOrdenDto enviarOrdenDto = new EnviarOrdenDto(parseIdOperacion, nis);
-
-                jsonDto = enviarOrdenDto.toJson();
-            } else if (parseIdOperacion == 5) {
-
-                ListarSuministroDto listarSuministroDto = new ListarSuministroDto(parseIdOperacion);
-
-                jsonDto = listarSuministroDto.toJson();
-
-            } else if (parseIdOperacion == 6) {
-
-                ListarSuministroDto listarSuministroDto = new ListarSuministroDto(parseIdOperacion);
-
-                jsonDto = listarSuministroDto.toJson();
-
-            }
+            String jsonDto = getDto(parseIdOperacion);
 
             sendData = jsonDto.getBytes();
 
-            System.out.println("Enviando datos al servidor = " + IPAddress + ":" + puertoServidor + " via UDP...");
+            uiConsole.sendInfo(IPAddress, puertoServidor, "UDP");
 
             DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, puertoServidor);
 
@@ -97,8 +60,7 @@ public class AppClientUDP {
 
             DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
-            System.out
-                    .println("Esperando respuesta del servidor = " + IPAddress + ":" + puertoServidor + " via UDP...");
+            uiConsole.waitInfo(IPAddress, puertoServidor, "UDP");
 
             clientSocket.setSoTimeout(10000);
 
@@ -107,8 +69,7 @@ public class AppClientUDP {
 
                 String respuesta = new String(receivePacket.getData()).trim();
 
-                System.out.println(
-                        "Respuesta del servidor = " + IPAddress + ":" + puertoServidor + " via UDP... " + respuesta);
+                uiConsole.sendData(IPAddress, puertoServidor, "UDP", respuesta);
 
                 if (parseIdOperacion == 1) {
                     RegistrarConsumoResponse response = RegistrarConsumoResponse.fromJson(respuesta);
@@ -152,24 +113,37 @@ public class AppClientUDP {
                     }
                 }
             } catch (SocketTimeoutException ste) {
-                System.out.println("No se recibió respuesta del servidor = " + IPAddress + ":" + puertoServidor
-                        + " via UDP...");
+                uiConsole.noResponse(IPAddress, puertoServidor, "UDP");
             }
             clientSocket.close();
 
         } catch (SocketException e) {
-
             e.printStackTrace();
         } catch (UnknownHostException e) {
-
             e.printStackTrace();
         } catch (IOException e) {
-
             e.printStackTrace();
         } catch (NumberFormatException e) {
-
             e.printStackTrace();
         }
 
+    }
+
+    private static String getDto(int parseIdOperacion) throws IOException {
+        ClientOperacion clientOperacion = new ClientOperacion(parseIdOperacion);
+        TipoOperacionClientStrategy strategy = null;
+
+        if (parseIdOperacion == 1) {
+            strategy = new RegistrarConsumoClientStrategy();
+        } else if (parseIdOperacion == 4) {
+            strategy = new EnviarOrdenClientStrategy();
+        } else if (parseIdOperacion == 5) {
+            strategy = new ListarSuministroClientStrategy();
+        } else if (parseIdOperacion == 6) {
+            strategy = new ListarSuministroClientStrategy();
+        }
+
+        String jsonDto = clientOperacion.getDto(strategy);
+        return jsonDto;
     }
 }
