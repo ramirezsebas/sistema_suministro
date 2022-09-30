@@ -9,13 +9,10 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import py.edu.fpuna.distri.tp_sockets.utils.ClientOperacion;
-import py.edu.fpuna.distri.tp_sockets.utils.EnviarOrdenClientStrategy;
-import py.edu.fpuna.distri.tp_sockets.utils.ListarSuministroClientStrategy;
-import py.edu.fpuna.distri.tp_sockets.utils.RegistrarConsumoClientStrategy;
-import py.edu.fpuna.distri.tp_sockets.utils.TipoOperacionClientStrategy;
-import py.edu.fpuna.distri.tp_sockets.utils.UIConsole;
+import py.edu.fpuna.distri.tp_sockets.utils.*;
 
 public class AppClientUDP {
     public static void main(String[] args) {
@@ -80,12 +77,16 @@ public class AppClientUDP {
             clientSocket.close();
 
         } catch (SocketException e) {
+            Logger.getLogger(AppClientUDP.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         } catch (UnknownHostException e) {
+            Logger.getLogger(AppClientUDP.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         } catch (IOException e) {
+            Logger.getLogger(AppClientUDP.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         } catch (NumberFormatException e) {
+            Logger.getLogger(AppClientUDP.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
 
@@ -103,6 +104,8 @@ public class AppClientUDP {
             strategy = new ListarSuministroClientStrategy();
         } else if (tipoOperacion == 6) {
             strategy = new ListarSuministroClientStrategy();
+        }else if(tipoOperacion==2){
+            strategy=new VerificarNISClientStrategy();
         }
 
         return strategy;

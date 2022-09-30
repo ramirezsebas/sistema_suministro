@@ -8,19 +8,28 @@ import java.net.SocketException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenDataResponse;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.EnviarOrdenResponse;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroResponse;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDataResponse;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
+import py.edu.fpuna.distri.tp_sockets.data.mappers.*;
 import py.edu.fpuna.distri.tp_sockets.data.repositories.MockSuministroRepository;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.EstadoActual;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 import py.edu.fpuna.distri.tp_sockets.domain.repositories.SuministroRepository;
+import py.edu.fpuna.distri.tp_sockets.utils.KResponse;
 
 public class AppServerUDP {
+    private static Logger logger = Logger.getLogger(String.valueOf(AppServerUDP.class));
+    private static FileHandler fh;
+
+    static {
+        try {
+            fh = new FileHandler("mylog.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private static Map<String, Suministro> initDB() {
         Map<String, Suministro> bdLocal = new HashMap<>();
@@ -54,10 +63,11 @@ public class AppServerUDP {
         Map<String, Suministro> bdLocal = AppServerUDP.initDB();
         SuministroRepository suministroRepository = new MockSuministroRepository(bdLocal);
         int puertoServidor = 9876;
-
+        logger.addHandler(fh);
+        KResponse response = new KResponse();
         try {
             DatagramSocket serverSocket = new DatagramSocket(puertoServidor);
-            System.out.println("Servidor escuchando en puerto: " + puertoServidor);
+            logger.info("Servidor escuchando en puerto: " + puertoServidor);
             byte[] receiveData = new byte[1024];
             byte[] sendData = new byte[1024];
 
@@ -65,16 +75,14 @@ public class AppServerUDP {
                 receiveData = new byte[1024];
                 DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 
-                System.out.println("Esperando peticion de algun NIS... ");
-
+                logger.info("Esperando peticion de algun NIS... ");
                 serverSocket.receive(receivePacket);
 
                 String request = new String(receivePacket.getData()).trim();
                 RegistrarConsumoDto registrarConsumoDto = RegistrarConsumoDto.fromJson(request);
 
-                System.out.println("________________________________________________");
-                System.out.println("Request del NIS: " + request);
-                System.out.println();
+                logger.info("________________________________________________");
+                logger.info("Request del NIS: " + request);
 
                 int tipoOperacion = registrarConsumoDto.getIdOperacion();
                 String nis = registrarConsumoDto.getNis();
@@ -89,7 +97,7 @@ public class AppServerUDP {
                         Suministro suministro = suministroRepository.registrarConsumo(nis, consumo);
 
                         if (suministro == null) {
-                            System.out.println("El suministro no existe");
+                            logger.warning("El suministro no existe");
                             RegistrarConsumoResponse suministroModel = new RegistrarConsumoResponse("ok", 0,
                                     tipoOperacion);
                             sendData = suministroModel.toJson().getBytes();
@@ -108,17 +116,21 @@ public class AppServerUDP {
 
                         serverSocket.send(sendPacket);
 
-                        System.out.println("Se envio la respuesta al NIS:" + nis);
-                        System.out.println("________________________________________________");
-                        System.out.println();
-                        System.out.println(new String(sendData).trim());
+                        logger.info("Se envio la respuesta al NIS:" + nis);
+                        logger.info("________________________________________________");
+                        logger.info(new String(sendData).trim());
 
                         break;
 
                     // Verificar Conectividad
                     case 2:
                         boolean isConnected = suministroRepository.verificarConectividad(nis);
-                        System.out.println("El suministro esta conectado: " + isConnected);
+                        logger.info("El suministro esta conectado: " + isConnected); //Logger para el servidor
+
+                        response.setEstado(0);
+                        response.setMensaje("El suministro esta conectado: " + isConnected);
+                        response.setDato(nis);
+                        sendData = response.toJson().getBytes();
 
                         break;
 
@@ -127,7 +139,7 @@ public class AppServerUDP {
                         Suministro suministro1 = suministroRepository.enviarOrdenDesconexion(nis);
 
                         if (suministro1 == null) {
-                            System.out.println("El suministro no existe");
+                            logger.info("El suministro no existe");
                             EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion);
                             sendData = suministroModel.toJson().getBytes();
 
@@ -147,7 +159,7 @@ public class AppServerUDP {
                         Suministro suministro2 = suministroRepository.enviarOrdenConexion(nis);
 
                         if (suministro2 == null) {
-                            System.out.println("El suministro no existe");
+                            logger.info("El suministro no existe");
                             EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion);
                             sendData = suministroModel.toJson().getBytes();
 
@@ -171,10 +183,9 @@ public class AppServerUDP {
 
                         sendData = listarSuministroResponseA.toJson().getBytes();
 
-                        System.out.println("Se envio la respuesta al NIS:" + nis);
-                        System.out.println("________________________________________________");
-                        System.out.println();
-                        System.out.println(new String(sendData).trim());
+                        logger.info("Se envio la respuesta al NIS:" + nis);
+                        logger.info("________________________________________________");
+                        logger.info(new String(sendData).trim());
 
                         break;
 
@@ -186,10 +197,9 @@ public class AppServerUDP {
 
                         sendData = listarSuministroResponseI.toJson().getBytes();
 
-                        System.out.println("Se envio la respuesta al NIS:" + nis);
-                        System.out.println("________________________________________________");
-                        System.out.println();
-                        System.out.println(new String(sendData).trim());
+                        logger.info("Se envio la respuesta al NIS:" + nis);
+                        logger.info("________________________________________________");
+                        logger.info(new String(sendData).trim());
 
                         break;
 
@@ -204,7 +214,11 @@ public class AppServerUDP {
             }
 
         } catch (SocketException e) {
-
+            logger.log(Level.WARNING, "ERROR", e);
+            response.setEstado(10);
+            response.setMensaje("ERROR AL OBTENER LOS DATOS");
+            response.setMensaje(e.getMessage());
+            response.setDato(e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
 

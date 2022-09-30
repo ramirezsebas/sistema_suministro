@@ -3,6 +3,7 @@ package py.edu.fpuna.distri.tp_sockets.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroResponse;
@@ -24,6 +25,7 @@ public class ListarSuministroClientStrategy implements TipoOperacionClientStrate
             System.out.println("No se encontraron suministros");
         } else {
             System.out.println("Listado de suministros: ");
+            response.getData().forEach((n) -> System.out.println(n));
         }
 
     }
