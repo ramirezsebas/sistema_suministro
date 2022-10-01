@@ -39,8 +39,6 @@ Una vez levantado el servidor se pobla la BD.
 
 ## Cómo compilar y ejecutar el/los clientes
 
-## Servicios Implementados
-
 ## Documentacion de API
 
 ### Servicio ofrecidos por el protocolo UDP
