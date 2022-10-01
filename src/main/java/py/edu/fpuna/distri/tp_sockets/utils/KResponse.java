@@ -5,7 +5,7 @@ public class KResponse<T> {
     Integer estado;
     Integer tipoOperacion;
     String mensaje;
-    T dato;
+    T data;
 
     public KResponse() {
     }
@@ -35,16 +35,16 @@ public class KResponse<T> {
     }
 
     public T getDato() {
-        return dato;
+        return data;
     }
 
-    public void setDato(T dato) {
-        this.dato = dato;
+    public void setDato(T data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
-        return "KResponse{" + "estado=" + estado + ", mensaje=" + mensaje + ", dato=" + dato + '}';
+        return "KResponse{" + "estado=" + estado + ", mensaje=" + mensaje + ", data=" + data + '}';
     }
 
     public String toJson() {
