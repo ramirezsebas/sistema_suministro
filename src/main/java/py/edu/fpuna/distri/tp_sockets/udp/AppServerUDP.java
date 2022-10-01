@@ -84,7 +84,7 @@ public class AppServerUDP {
                 logger.info("________________________________________________");
                 logger.info("Request del NIS: " + request);
 
-                int tipoOperacion = registrarConsumoDto.getIdOperacion();
+                int tipoOperacion = registrarConsumoDto.getTipoOperacion();
                 String nis = registrarConsumoDto.getNis();
 
                 InetAddress IPAddress = receivePacket.getAddress();
@@ -125,11 +125,15 @@ public class AppServerUDP {
                     // Verificar Conectividad
                     case 2:
                         boolean isConnected = suministroRepository.verificarConectividad(nis);
-                        logger.info("El suministro esta conectado: " + isConnected); //Logger para el servidor
+                        logger.info("El suministro esta conectado: " + isConnected); // Logger para el servidor
 
                         response.setEstado(0);
-                        response.setMensaje("El suministro esta conectado: " + isConnected);
-                        response.setDato(nis);
+                        response.setMensaje("OK");
+                        if (isConnected) {
+                            response.setDato("El NIS: " + nis + " esta conectado");
+                        }else{
+                            response.setDato("El NIS: " + nis + " no esta conectado");
+                        }
                         sendData = response.toJson().getBytes();
 
                         break;

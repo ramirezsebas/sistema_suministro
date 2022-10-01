@@ -21,7 +21,6 @@ public class UIConsole {
 
     public void insertConsumo() {
         System.out.println("Ingrese su consumo: ");
-        System.out.println();
     }
 
     public void sendInfo(InetAddress IPAddress, int puertoServidor, String protocolo) {

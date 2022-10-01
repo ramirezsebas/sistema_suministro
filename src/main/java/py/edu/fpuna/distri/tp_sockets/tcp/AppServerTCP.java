@@ -88,7 +88,7 @@ public class AppServerTCP {
 
                 String nis = registrarConsumoDto.getNis();
 
-                int tipoOperacion = registrarConsumoDto.getIdOperacion();
+                int tipoOperacion = registrarConsumoDto.getTipoOperacion();
 
                 switch (tipoOperacion) {
                     // Registrar Consumo

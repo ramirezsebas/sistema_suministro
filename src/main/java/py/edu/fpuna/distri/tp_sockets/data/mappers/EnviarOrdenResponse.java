@@ -5,19 +5,19 @@ import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
 public class EnviarOrdenResponse {
     private String mensaje;
     private int estado;
-    private int idOperacion;
+    private int tipoOperacion;
     private EnviarOrdenDataResponse data;
 
-    public EnviarOrdenResponse(String mensaje, int estado, int idOperacion) {
+    public EnviarOrdenResponse(String mensaje, int estado, int tipoOperacion) {
         this.mensaje = mensaje;
         this.estado = estado;
-        this.idOperacion = idOperacion;
+        this.tipoOperacion = tipoOperacion;
     }
 
-    public EnviarOrdenResponse(String mensaje, int estado, int idOperacion, EnviarOrdenDataResponse data) {
+    public EnviarOrdenResponse(String mensaje, int estado, int tipoOperacion, EnviarOrdenDataResponse data) {
         this.mensaje = mensaje;
         this.estado = estado;
-        this.idOperacion = idOperacion;
+        this.tipoOperacion = tipoOperacion;
         this.data = data;
     }
 
@@ -37,12 +37,12 @@ public class EnviarOrdenResponse {
         this.estado = estado;
     }
 
-    public int getidOperacion() {
-        return idOperacion;
+    public int getTipoOperacion() {
+        return tipoOperacion;
     }
 
-    public void setidOperacion(int idOperacion) {
-        this.idOperacion = idOperacion;
+    public void setTipoOperacion(int tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
     }
 
     public EnviarOrdenDataResponse getData() {

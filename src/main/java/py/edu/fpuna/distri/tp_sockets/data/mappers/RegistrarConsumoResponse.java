@@ -6,19 +6,19 @@ import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
 public class RegistrarConsumoResponse {
     private String mensaje;
     private int estado;
-    private int idOperacion;
+    private int tipoOperacion;
     private RegistrarConsumoDataResponse data;
 
-    public RegistrarConsumoResponse(String mensaje, int estado, int idOperacion) {
+    public RegistrarConsumoResponse(String mensaje, int estado, int tipoOperacion) {
         this.mensaje = mensaje;
         this.estado = estado;
-        this.idOperacion = idOperacion;
+        this.tipoOperacion = tipoOperacion;
     }
 
-    public RegistrarConsumoResponse(String mensaje, int estado, int idOperacion, RegistrarConsumoDataResponse data) {
+    public RegistrarConsumoResponse(String mensaje, int estado, int tipoOperacion, RegistrarConsumoDataResponse data) {
         this.mensaje = mensaje;
         this.estado = estado;
-        this.idOperacion = idOperacion;
+        this.tipoOperacion = tipoOperacion;
         this.data = data;
     }
 
@@ -54,12 +54,12 @@ public class RegistrarConsumoResponse {
         this.estado = estado;
     }
 
-    public int getidOperacion() {
-        return idOperacion;
+    public int getTipoOperacion() {
+        return tipoOperacion;
     }
 
-    public void setidOperacion(int idOperacion) {
-        this.idOperacion = idOperacion;
+    public void setTipoOperacion(int tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
     }
 
 }
