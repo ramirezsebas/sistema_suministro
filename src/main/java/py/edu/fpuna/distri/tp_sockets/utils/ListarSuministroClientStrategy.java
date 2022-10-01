@@ -3,10 +3,10 @@ package py.edu.fpuna.distri.tp_sockets.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroDto;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.ListarSuministroResponse;
+import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 
 public class ListarSuministroClientStrategy implements TipoOperacionClientStrategy {
     UIConsole uiConsole = new UIConsole();
@@ -25,7 +25,9 @@ public class ListarSuministroClientStrategy implements TipoOperacionClientStrate
             System.out.println("No se encontraron suministros");
         } else {
             System.out.println("Listado de suministros: ");
-            response.getData().forEach((n) -> System.out.println(n));
+            for (Suministro suministro : response.getData()) {
+                System.out.println(suministro);
+            }
         }
 
     }
