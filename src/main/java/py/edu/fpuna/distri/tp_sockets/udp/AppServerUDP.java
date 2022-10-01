@@ -96,21 +96,20 @@ public class AppServerUDP {
                         double consumo = registrarConsumoDto.getConsumo();
                         Suministro suministro = suministroRepository.registrarConsumo(nis, consumo);
 
+                        response.setEstado(0);
+                        response.setMensaje("OK");
+                        response.setTipoOperacion(1);
+
                         if (suministro == null) {
                             logger.warning("El suministro no existe");
-                            RegistrarConsumoResponse suministroModel = new RegistrarConsumoResponse("ok", 0,
-                                    tipoOperacion);
-                            sendData = suministroModel.toJson().getBytes();
+                            response.setDato("No se pudo registrar el consumo, no existe el suministro: " + nis);
 
                         } else {
                             RegistrarConsumoDataResponse registrarConsumoDataResponse = new RegistrarConsumoDataResponse(
                                     suministro.getNis(), suministro.getConsumo());
-                            RegistrarConsumoResponse suministroModel = new RegistrarConsumoResponse("ok", 0,
-                                    tipoOperacion,
-                                    registrarConsumoDataResponse);
-
-                            sendData = suministroModel.toJson().getBytes();
+                            response.setDato(registrarConsumoDataResponse);
                         }
+                        sendData = response.toJson().getBytes();
 
                         DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, port);
 
@@ -129,9 +128,10 @@ public class AppServerUDP {
 
                         response.setEstado(0);
                         response.setMensaje("OK");
+                        response.setTipoOperacion(2);
                         if (isConnected) {
                             response.setDato("El NIS: " + nis + " esta conectado");
-                        }else{
+                        } else {
                             response.setDato("El NIS: " + nis + " no esta conectado");
                         }
                         sendData = response.toJson().getBytes();

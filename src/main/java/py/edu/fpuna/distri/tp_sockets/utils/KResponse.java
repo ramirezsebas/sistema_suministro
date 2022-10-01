@@ -1,9 +1,9 @@
 package py.edu.fpuna.distri.tp_sockets.utils;
 
-
 public class KResponse<T> {
 
     Integer estado;
+    Integer tipoOperacion;
     String mensaje;
     T dato;
 
@@ -26,6 +26,14 @@ public class KResponse<T> {
         this.mensaje = mensaje;
     }
 
+    public Integer getTipoOperacion() {
+        return tipoOperacion;
+    }
+
+    public void setTipoOperacion(Integer tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
+    }
+
     public T getDato() {
         return dato;
     }
@@ -38,6 +46,7 @@ public class KResponse<T> {
     public String toString() {
         return "KResponse{" + "estado=" + estado + ", mensaje=" + mensaje + ", dato=" + dato + '}';
     }
+
     public String toJson() {
         return JsonUtil.toJson(this);
     }
