@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2022-09-30T23:06:04.018328474Z</date>
-  <millis>1664579164018</millis>
-  <nanos>328474</nanos>
+  <date>2022-10-01T17:01:57.121596100Z</date>
+  <millis>1664643717121</millis>
+  <nanos>596100</nanos>
   <sequence>0</sequence>
   <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Servidor escuchando en puerto: 9876</message>
 </record>
 <record>
-  <date>2022-09-30T23:06:04.210295280Z</date>
-  <millis>1664579164210</millis>
-  <nanos>295280</nanos>
+  <date>2022-10-01T17:01:57.181403800Z</date>
+  <millis>1664643717181</millis>
+  <nanos>403800</nanos>
   <sequence>1</sequence>
   <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>Esperando peticion de algun NIS... </message>
 </record>
 <record>
-  <date>2022-09-30T23:08:42.058230227Z</date>
-  <millis>1664579322058</millis>
-  <nanos>230227</nanos>
+  <date>2022-10-01T17:02:03.046144400Z</date>
+  <millis>1664643723046</millis>
+  <nanos>144400</nanos>
   <sequence>2</sequence>
   <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
   <level>INFO</level>
@@ -38,21 +38,21 @@
   <message>________________________________________________</message>
 </record>
 <record>
-  <date>2022-09-30T23:08:42.060439575Z</date>
-  <millis>1664579322060</millis>
-  <nanos>439575</nanos>
+  <date>2022-10-01T17:02:03.047282500Z</date>
+  <millis>1664643723047</millis>
+  <nanos>282500</nanos>
   <sequence>3</sequence>
   <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
   <level>INFO</level>
   <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
   <method>main</method>
   <thread>1</thread>
-  <message>Request del NIS: {"nis":"123","idOperacion":2}</message>
+  <message>Request del NIS: {"nis":"123","tipoOperacion":2}</message>
 </record>
 <record>
-  <date>2022-09-30T23:08:42.062449619Z</date>
-  <millis>1664579322062</millis>
-  <nanos>449619</nanos>
+  <date>2022-10-01T17:02:03.047998100Z</date>
+  <millis>1664643723047</millis>
+  <nanos>998100</nanos>
   <sequence>4</sequence>
   <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
   <level>INFO</level>
@@ -62,9 +62,9 @@
   <message>El suministro esta conectado: true</message>
 </record>
 <record>
-  <date>2022-09-30T23:08:42.068098033Z</date>
-  <millis>1664579322068</millis>
-  <nanos>98033</nanos>
+  <date>2022-10-01T17:02:03.053995500Z</date>
+  <millis>1664643723053</millis>
+  <nanos>995500</nanos>
   <sequence>5</sequence>
   <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
   <level>INFO</level>
@@ -73,52 +73,3 @@
   <thread>1</thread>
   <message>Esperando peticion de algun NIS... </message>
 </record>
-<record>
-  <date>2022-09-30T23:10:11.379177426Z</date>
-  <millis>1664579411379</millis>
-  <nanos>177426</nanos>
-  <sequence>6</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
-  <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>________________________________________________</message>
-</record>
-<record>
-  <date>2022-09-30T23:10:11.380146242Z</date>
-  <millis>1664579411380</millis>
-  <nanos>146242</nanos>
-  <sequence>7</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
-  <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Request del NIS: {"nis":"122222","idOperacion":2}</message>
-</record>
-<record>
-  <date>2022-09-30T23:10:11.381182036Z</date>
-  <millis>1664579411381</millis>
-  <nanos>182036</nanos>
-  <sequence>8</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
-  <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>El suministro esta conectado: false</message>
-</record>
-<record>
-  <date>2022-09-30T23:10:11.382326316Z</date>
-  <millis>1664579411382</millis>
-  <nanos>326316</nanos>
-  <sequence>9</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
-  <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>Esperando peticion de algun NIS... </message>
-</record>
-</log>
