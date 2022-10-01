@@ -71,7 +71,7 @@
                             <manifest>
                                 <addClasspath>true</addClasspath>
                                 <classpathPrefix>lib/</classpathPrefix>
-                                <mainClass>py.edu.fpuna.distri.tp_sockets.App</mainClass>
+                                <mainClass>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</mainClass>
                             </manifest>
                         </archive>
                     </configuration>

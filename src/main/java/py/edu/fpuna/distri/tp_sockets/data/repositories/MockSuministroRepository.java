@@ -97,7 +97,7 @@ public class MockSuministroRepository implements SuministroRepository {
     }
 
     private List<Suministro> getAllSuministros() {
-        return bdLocal.values().stream().toList();
+        return new ArrayList<>(bdLocal.values());
     }
 
 }
