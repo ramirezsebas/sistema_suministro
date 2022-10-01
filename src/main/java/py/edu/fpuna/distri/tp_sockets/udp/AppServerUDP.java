@@ -136,6 +136,10 @@ public class AppServerUDP {
                         }
                         sendData = response.toJson().getBytes();
 
+                        logger.info("Se envio la respuesta al NIS:" + nis);
+                        logger.info("________________________________________________");
+                        logger.info(new String(sendData).trim());
+
                         break;
 
                     // Enviar Orden de Desconexion
