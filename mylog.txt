@@ -2,73 +2,361 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2022-10-01T17:01:57.121596100Z</date>
-  <millis>1664643717121</millis>
-  <nanos>596100</nanos>
+  <date>2022-10-01T19:42:28.689452300Z</date>
+  <millis>1664653348689</millis>
+  <nanos>452300</nanos>
   <sequence>0</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
   <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
   <method>main</method>
   <thread>1</thread>
   <message>Servidor escuchando en puerto: 9876</message>
 </record>
 <record>
-  <date>2022-10-01T17:01:57.181403800Z</date>
-  <millis>1664643717181</millis>
-  <nanos>403800</nanos>
+  <date>2022-10-01T19:42:28.752231600Z</date>
+  <millis>1664653348752</millis>
+  <nanos>231600</nanos>
   <sequence>1</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
   <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
   <method>main</method>
   <thread>1</thread>
   <message>Esperando peticion de algun NIS... </message>
 </record>
 <record>
-  <date>2022-10-01T17:02:03.046144400Z</date>
-  <millis>1664643723046</millis>
-  <nanos>144400</nanos>
+  <date>2022-10-01T19:42:40.316593900Z</date>
+  <millis>1664653360316</millis>
+  <nanos>593900</nanos>
   <sequence>2</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
   <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
   <method>main</method>
   <thread>1</thread>
   <message>________________________________________________</message>
 </record>
 <record>
-  <date>2022-10-01T17:02:03.047282500Z</date>
-  <millis>1664643723047</millis>
-  <nanos>282500</nanos>
+  <date>2022-10-01T19:42:40.317595Z</date>
+  <millis>1664653360317</millis>
+  <nanos>595000</nanos>
   <sequence>3</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
   <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
   <method>main</method>
   <thread>1</thread>
-  <message>Request del NIS: {"nis":"123","tipoOperacion":2}</message>
+  <message>Request del NIS: {"tipoOperacion":4,"nis":"1"}</message>
 </record>
 <record>
-  <date>2022-10-01T17:02:03.047998100Z</date>
-  <millis>1664643723047</millis>
-  <nanos>998100</nanos>
+  <date>2022-10-01T19:42:40.426738Z</date>
+  <millis>1664653360426</millis>
+  <nanos>738000</nanos>
   <sequence>4</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
   <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
   <method>main</method>
   <thread>1</thread>
-  <message>El suministro esta conectado: true</message>
+  <message>Se envio la respuesta al NIS:1</message>
 </record>
 <record>
-  <date>2022-10-01T17:02:03.053995500Z</date>
-  <millis>1664643723053</millis>
-  <nanos>995500</nanos>
+  <date>2022-10-01T19:42:40.427738200Z</date>
+  <millis>1664653360427</millis>
+  <nanos>738200</nanos>
   <sequence>5</sequence>
-  <logger>class py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</logger>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
   <level>INFO</level>
-  <class>py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP</class>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:40.434865400Z</date>
+  <millis>1664653360434</millis>
+  <nanos>865400</nanos>
+  <sequence>6</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>{"estado":0,"tipoOperacion":3,"mensaje":"OK","dato":{"nis":"1","usuario":"Juan Pereria","consumo":1234.56,"estado":"ACTIVO"}}</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:42.449100500Z</date>
+  <millis>1664653362449</millis>
+  <nanos>100500</nanos>
+  <sequence>7</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Cerrando conexion con el cliente</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:42.453708700Z</date>
+  <millis>1664653362453</millis>
+  <nanos>708700</nanos>
+  <sequence>8</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Esperando peticion de algun NIS... </message>
+</record>
+<record>
+  <date>2022-10-01T19:42:53.901346400Z</date>
+  <millis>1664653373901</millis>
+  <nanos>346400</nanos>
+  <sequence>9</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:53.902348Z</date>
+  <millis>1664653373902</millis>
+  <nanos>348000</nanos>
+  <sequence>10</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Request del NIS: {"tipoOperacion":4,"nis":"1"}</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:53.904351600Z</date>
+  <millis>1664653373904</millis>
+  <nanos>351600</nanos>
+  <sequence>11</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Se envio la respuesta al NIS:1</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:53.906357300Z</date>
+  <millis>1664653373906</millis>
+  <nanos>357300</nanos>
+  <sequence>12</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:53.908348100Z</date>
+  <millis>1664653373908</millis>
+  <nanos>348100</nanos>
+  <sequence>13</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>{"estado":0,"tipoOperacion":3,"mensaje":"OK","dato":{"nis":"1","usuario":"Juan Pereria","consumo":1234.56,"estado":"ACTIVO"}}</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:55.915049200Z</date>
+  <millis>1664653375915</millis>
+  <nanos>49200</nanos>
+  <sequence>14</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Cerrando conexion con el cliente</message>
+</record>
+<record>
+  <date>2022-10-01T19:42:55.915049200Z</date>
+  <millis>1664653375915</millis>
+  <nanos>49200</nanos>
+  <sequence>15</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Esperando peticion de algun NIS... </message>
+</record>
+<record>
+  <date>2022-10-01T19:43:06.841713Z</date>
+  <millis>1664653386841</millis>
+  <nanos>713000</nanos>
+  <sequence>16</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:06.842715Z</date>
+  <millis>1664653386842</millis>
+  <nanos>715000</nanos>
+  <sequence>17</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Request del NIS: {"tipoOperacion":5}</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:06.847716700Z</date>
+  <millis>1664653386847</millis>
+  <nanos>716700</nanos>
+  <sequence>18</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Se envio la respuesta al NIS:null</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:06.849716500Z</date>
+  <millis>1664653386849</millis>
+  <nanos>716500</nanos>
+  <sequence>19</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:06.856719Z</date>
+  <millis>1664653386856</millis>
+  <nanos>719000</nanos>
+  <sequence>20</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>{"estado":0,"tipoOperacion":6,"mensaje":"OK","dato":[{"nis":"11","usuario":"Matias Pedroso","consumo":1234.5,"estado":"ACTIVO"},{"nis":"12","usuario":"Alejendro Sanz","consumo":1234.5,"estado":"ACTIVO"},{"nis":"13","usuario":"Enrique Iglesias","consumo":1234.5,"estado":"ACTIVO"},{"nis":"14","usuario":"Arturo Suarez","consumo":1234.5,"estado":"ACTIVO"},{"nis":"16","usuario":"Juan Troche","consumo":1234.5,"estado":"ACTIVO"},{"nis":"1","usuario":"Juan Pereria","consumo":1234.56,"estado":"ACTIVO"},{"nis":"2","usuario":"Juan Perez","consumo":1234.5,"estado":"ACTIVO"},{"nis":"3","usuario":"Maria Ramirez","consumo":10000.0,"estado":"ACTIVO"},{"nis":"4","usuario":"Juan Sosa","consumo":1234.5,"estado":"ACTIVO"},{"nis":"5","usuario":"Mario Gomez","consumo":1234.5,"estado":"ACTIVO"},{"nis":"6","usuario":"Juan Torres Brizuela","consumo":12671.0,"estado":"ACTIVO"},{"nis":"7","usuario":"Mariano Lopez","consumo":1234.5,"estado":"ACTIVO"},{"nis":"8","usuario":"Enrique Gimenez","consumo":1234.5,"estado":"ACTIVO"},{"nis":"9","usuario":"Matias Lopez","consumo":1234.5,"estado":"ACTIVO"},{"nis":"10","usuario":"Matias Perez","consumo":1234.5,"estado":"ACTIVO"}]}</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:08.861404300Z</date>
+  <millis>1664653388861</millis>
+  <nanos>404300</nanos>
+  <sequence>21</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Cerrando conexion con el cliente</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:08.861404300Z</date>
+  <millis>1664653388861</millis>
+  <nanos>404300</nanos>
+  <sequence>22</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Esperando peticion de algun NIS... </message>
+</record>
+<record>
+  <date>2022-10-01T19:43:11.829181500Z</date>
+  <millis>1664653391829</millis>
+  <nanos>181500</nanos>
+  <sequence>23</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:11.831504200Z</date>
+  <millis>1664653391831</millis>
+  <nanos>504200</nanos>
+  <sequence>24</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Request del NIS: {"tipoOperacion":6}</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:11.833444500Z</date>
+  <millis>1664653391833</millis>
+  <nanos>444500</nanos>
+  <sequence>25</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Se envio la respuesta al NIS:null</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:11.834118700Z</date>
+  <millis>1664653391834</millis>
+  <nanos>118700</nanos>
+  <sequence>26</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:11.836538700Z</date>
+  <millis>1664653391836</millis>
+  <nanos>538700</nanos>
+  <sequence>27</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>{"estado":0,"tipoOperacion":6,"mensaje":"OK","dato":[{"nis":"15","usuario":"Geronimo Torres","consumo":1234.5,"estado":"INACTIVO"},{"nis":"17","usuario":"Maria Castillo","consumo":1234.5,"estado":"INACTIVO"}]}</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:13.841729200Z</date>
+  <millis>1664653393841</millis>
+  <nanos>729200</nanos>
+  <sequence>28</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Cerrando conexion con el cliente</message>
+</record>
+<record>
+  <date>2022-10-01T19:43:13.843665300Z</date>
+  <millis>1664653393843</millis>
+  <nanos>665300</nanos>
+  <sequence>29</sequence>
+  <logger>class py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</logger>
+  <level>INFO</level>
+  <class>py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP</class>
   <method>main</method>
   <thread>1</thread>
   <message>Esperando peticion de algun NIS... </message>
