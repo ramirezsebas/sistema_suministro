@@ -9,10 +9,10 @@ public class UIConsole {
         if (protocoloMayuscula == "UDP") {
             System.out.println("1. Registrar Consumo");
             System.out.println("2. Verificar Conectividad");
-            System.out.println("3. Enviar Orden de Conexion");
-
+            System.out.println("3. Enviar Orden de Desconexion");
+            
         } else {
-            System.out.println("4. Enviar Orden de Desconexion");
+            System.out.println("4. Enviar Orden de Conexion");
             System.out.println("5. Listar Suministros Activos");
             System.out.println("6. Listar Suministros Inactivos");
         }
@@ -36,7 +36,7 @@ public class UIConsole {
 
     public void sendData(InetAddress IPAddress, int puertoServidor, String protocolo, String respuesta) {
         System.out.println("Respuesta del servidor = " + IPAddress + ":" + puertoServidor + " via "
-                + protocolo.toUpperCase() + "... " + respuesta);
+                + protocolo.toUpperCase() + "... " + JsonUtil.printJson(respuesta));
 
     }
 

@@ -20,7 +20,7 @@ public class MockSuministroRepository implements SuministroRepository {
     }
 
     @Override
-    public Suministro registrarConsumo(String nis,double consumo) {
+    public Suministro registrarConsumo(String nis, double consumo) {
         Suministro suministro = getSuministro(nis);
         if (suministro == null) {
             return null;
@@ -46,12 +46,9 @@ public class MockSuministroRepository implements SuministroRepository {
             return null;
         }
 
-        if (suministro.getDeuda() <= 0) {
-            return null;
-        }
+        suministro.setEstado(Estado.INACTIVO);
 
         return suministro;
-
     }
 
     @Override
@@ -63,9 +60,7 @@ public class MockSuministroRepository implements SuministroRepository {
             return null;
         }
 
-        if (suministro.getDeuda() > 0) {
-            return null;
-        }
+        suministro.setEstado(Estado.ACTIVO);
 
         return suministro;
 

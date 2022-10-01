@@ -4,14 +4,12 @@ public class Suministro {
     private String nis;
     private String usuario;
     private double consumo;
-    private double deuda;
     private Estado estado;
 
-    public Suministro(String nis, String usuario, double consumo, double deuda, Estado estado) {
+    public Suministro(String nis, String usuario, double consumo, Estado estado) {
         this.nis = nis;
         this.usuario = usuario;
         this.consumo = consumo;
-        this.deuda = deuda;
         this.estado = estado;
     }
 
@@ -39,14 +37,6 @@ public class Suministro {
         this.consumo = consumo;
     }
 
-    public double getDeuda() {
-        return deuda;
-    }
-
-    public void setDeuda(double deuda) {
-        this.deuda = deuda;
-    }
-
     public Estado getEstado() {
         return estado;
     }
@@ -57,6 +47,6 @@ public class Suministro {
 
     @Override
     public String toString() {
-        return "Suministro [nis=" + nis + ", consumo=" + consumo + ", deuda=" + deuda + ", estado=" + estado + "]";
+        return "Suministro [nis=" + nis + ", consumo=" + consumo + ", estado=" + estado + "]";
     }
 }

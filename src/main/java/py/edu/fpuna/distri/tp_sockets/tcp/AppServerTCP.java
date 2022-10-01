@@ -42,28 +42,28 @@ public class AppServerTCP {
 
     private static Map<String, Suministro> initDB() {
         Map<String, Suministro> bdLocal = new HashMap<>();
-        bdLocal.put("1", new Suministro("1", "Juan Pereria", 1234.56, 0, Estado.ACTIVO));
-        bdLocal.put("2", new Suministro("2", "Juan Perez", 1234.5, 0, Estado.ACTIVO));
-        bdLocal.put("3", new Suministro("3", "Maria Ramirez", 10000, 12345.6, Estado.ACTIVO));
-        bdLocal.put("4", new Suministro("4", "Juan Sosa", 1234.5, 12345.6, Estado.ACTIVO));
-        bdLocal.put("5", new Suministro("5", "Mario Gomez", 1234.5, 12345.6, Estado.ACTIVO));
-        bdLocal.put("6", new Suministro("6", "Juan Torres Brizuela", 12671, 0, Estado.ACTIVO));
-        bdLocal.put("7", new Suministro("7", "Mariano Lopez", 1234.5, 0, Estado.ACTIVO));
+        bdLocal.put("1", new Suministro("1", "Juan Pereria", 1234.56, Estado.ACTIVO));
+        bdLocal.put("2", new Suministro("2", "Juan Perez", 1234.5, Estado.ACTIVO));
+        bdLocal.put("3", new Suministro("3", "Maria Ramirez", 10000, Estado.ACTIVO));
+        bdLocal.put("4", new Suministro("4", "Juan Sosa", 1234.5, Estado.ACTIVO));
+        bdLocal.put("5", new Suministro("5", "Mario Gomez", 1234.5, Estado.ACTIVO));
+        bdLocal.put("6", new Suministro("6", "Juan Torres Brizuela", 12671, Estado.ACTIVO));
+        bdLocal.put("7", new Suministro("7", "Mariano Lopez", 1234.5, Estado.ACTIVO));
         bdLocal.put("8",
-                new Suministro("8", "Enrique Gimenez", 1234.5, 12345.6, Estado.ACTIVO));
-        bdLocal.put("9", new Suministro("9", "Matias Lopez", 1234.5, 12345.6, Estado.ACTIVO));
-        bdLocal.put("10", new Suministro("10", "Matias Perez", 1234.5, 12345.6, Estado.ACTIVO));
+                new Suministro("8", "Enrique Gimenez", 1234.5, Estado.ACTIVO));
+        bdLocal.put("9", new Suministro("9", "Matias Lopez", 1234.5, Estado.ACTIVO));
+        bdLocal.put("10", new Suministro("10", "Matias Perez", 1234.5, Estado.ACTIVO));
         bdLocal.put("11",
-                new Suministro("11", "Matias Pedroso", 1234.5, 12345.6, Estado.ACTIVO));
-        bdLocal.put("12", new Suministro("12", "Alejendro Sanz", 1234.5, 0, Estado.ACTIVO));
-        bdLocal.put("13", new Suministro("13", "Enrique Iglesias", 1234.5, 0, Estado.ACTIVO));
-        bdLocal.put("14", new Suministro("14", "Arturo Suarez", 1234.5, 0, Estado.ACTIVO));
+                new Suministro("11", "Matias Pedroso", 1234.5, Estado.ACTIVO));
+        bdLocal.put("12", new Suministro("12", "Alejendro Sanz", 1234.5, Estado.ACTIVO));
+        bdLocal.put("13", new Suministro("13", "Enrique Iglesias", 1234.5, Estado.ACTIVO));
+        bdLocal.put("14", new Suministro("14", "Arturo Suarez", 1234.5, Estado.ACTIVO));
         bdLocal.put("15",
-                new Suministro("15", "Geronimo Torres", 1234.5, 12345.6, Estado.INACTIVO));
+                new Suministro("15", "Geronimo Torres", 1234.5, Estado.INACTIVO));
         bdLocal.put("16",
-                new Suministro("16", "Juan Troche", 1234.5, 12345.6, Estado.ACTIVO));
+                new Suministro("16", "Juan Troche", 1234.5, Estado.ACTIVO));
         bdLocal.put("17",
-                new Suministro("17", "Maria Castillo", 1234.5, 12345.6, Estado.INACTIVO));
+                new Suministro("17", "Maria Castillo", 1234.5, Estado.INACTIVO));
 
         return bdLocal;
     }
@@ -115,23 +115,17 @@ public class AppServerTCP {
 
                         kresponse.setEstado(0);
                         kresponse.setMensaje("OK");
-                        kresponse.setTipoOperacion(4);
+                        kresponse.setTipoOperacion(3);
                         if (suministro2 == null) {
                             logger.info("El suministro no existe");
-
-                            EnviarOrdenResponse suministroModel = new EnviarOrdenResponse("ok", 0, tipoOperacion);
-                            kresponse.setDato("El suministro " + nis + " no existe");
-
+                            kresponse.setDato(
+                                    "No se pudo enviar la orden de desconexion, no existe el suministro: " + nis);
                         } else {
-                            EnviarOrdenDataResponse enviarOrdenDataResponse = new EnviarOrdenDataResponse(
-                                    suministro2.getNis(), suministro2.getDeuda());
-
-                            kresponse.setDato(enviarOrdenDataResponse);
+                            kresponse.setDato(suministro2);
                         }
 
                         logger.info("Se envio la respuesta al NIS:" + nis);
                         logger.info("________________________________________________");
-
                         logger.info(new String(kresponse.toJson()).trim());
                         break;
 
@@ -188,11 +182,17 @@ public class AppServerTCP {
             }
 
         } catch (IOException e) {
-            System.err.println("No se puede abrir el puerto: " + puertoServidor);
-            System.exit(1);
+            logger.log(Level.SEVERE, "ERROR", e);
+            kresponse.setEstado(10);
+            kresponse.setMensaje(e.getMessage());
+            kresponse.setDato(e.getMessage());
+            e.printStackTrace();
         } catch (InterruptedException e) {
-            System.err.println("Error en el tiempo de procesamiento: " + e.getMessage());
-            System.exit(1);
+            logger.log(Level.SEVERE, "ERROR", e);
+            kresponse.setEstado(10);
+            kresponse.setMensaje(e.getMessage());
+            kresponse.setDato(e.getMessage());
+            e.printStackTrace();
         }
 
     }

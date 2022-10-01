@@ -96,14 +96,16 @@ public class AppClientUDP {
 
         if (tipoOperacion == 1) {
             strategy = new RegistrarConsumoClientStrategy();
+        } else if (tipoOperacion == 3) {
+            strategy = new EnviarOrdenClientStrategy();
         } else if (tipoOperacion == 4) {
             strategy = new EnviarOrdenClientStrategy();
         } else if (tipoOperacion == 5) {
             strategy = new ListarSuministroClientStrategy();
         } else if (tipoOperacion == 6) {
             strategy = new ListarSuministroClientStrategy();
-        }else if(tipoOperacion==2){
-            strategy=new VerificarNISClientStrategy();
+        } else if (tipoOperacion == 2) {
+            strategy = new VerificarNISClientStrategy();
         }
 
         return strategy;
