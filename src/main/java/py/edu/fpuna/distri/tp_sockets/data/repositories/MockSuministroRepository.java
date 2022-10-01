@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import py.edu.fpuna.distri.tp_sockets.domain.entities.EstadoActual;
+import py.edu.fpuna.distri.tp_sockets.domain.entities.Estado;
 import py.edu.fpuna.distri.tp_sockets.domain.entities.Suministro;
 import py.edu.fpuna.distri.tp_sockets.domain.repositories.SuministroRepository;
 
@@ -78,7 +78,7 @@ public class MockSuministroRepository implements SuministroRepository {
         List<Suministro> suministrosInactivos = new ArrayList<>();
 
         for (Suministro suministro : allSuministros) {
-            if (suministro.getEstado() == EstadoActual.INACTIVO) {
+            if (suministro.getEstado() == Estado.INACTIVO) {
                 suministrosInactivos.add(suministro);
             }
         }
@@ -93,7 +93,7 @@ public class MockSuministroRepository implements SuministroRepository {
         List<Suministro> suministrosActivos = new ArrayList<>();
 
         for (Suministro suministro : allSuministros) {
-            if (suministro.getEstado() == EstadoActual.ACTIVO) {
+            if (suministro.getEstado() == Estado.ACTIVO) {
                 suministrosActivos.add(suministro);
             }
         }

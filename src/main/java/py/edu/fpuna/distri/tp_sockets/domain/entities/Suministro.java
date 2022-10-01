@@ -5,9 +5,9 @@ public class Suministro {
     private String usuario;
     private double consumo;
     private double deuda;
-    private EstadoActual estado;
+    private Estado estado;
 
-    public Suministro(String nis, String usuario, double consumo, double deuda, EstadoActual estado) {
+    public Suministro(String nis, String usuario, double consumo, double deuda, Estado estado) {
         this.nis = nis;
         this.usuario = usuario;
         this.consumo = consumo;
@@ -47,11 +47,11 @@ public class Suministro {
         this.deuda = deuda;
     }
 
-    public EstadoActual getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoActual estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
