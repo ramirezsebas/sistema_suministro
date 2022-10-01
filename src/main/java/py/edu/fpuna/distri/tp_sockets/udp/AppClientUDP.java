@@ -38,7 +38,7 @@ public class AppClientUDP {
             byte[] sendData = new byte[1024];
             byte[] receiveData = new byte[1024];
 
-            uiConsole.insertOperation();
+            uiConsole.insertOperation("UDP");
 
             int tipoOperacion = Integer.parseInt(inFromUser.readLine());
 
@@ -68,8 +68,6 @@ public class AppClientUDP {
                 String respuesta = new String(receivePacket.getData()).trim();
 
                 uiConsole.sendData(IPAddress, puertoServidor, "UDP", respuesta);
-
-                clientOperacion.getRespuesta(tipoOperacionClientStrategy, respuesta);
 
             } catch (SocketTimeoutException ste) {
                 uiConsole.noResponse(IPAddress, puertoServidor, "UDP");
