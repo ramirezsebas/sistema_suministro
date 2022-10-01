@@ -1,6 +1,5 @@
 package py.edu.fpuna.distri.tp_sockets.utils;
 
-import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
 
 public class KResponse<T> {
 

@@ -1,7 +1,4 @@
 package py.edu.fpuna.distri.tp_sockets.utils;
-
-import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoDto;
-import py.edu.fpuna.distri.tp_sockets.data.mappers.RegistrarConsumoResponse;
 import py.edu.fpuna.distri.tp_sockets.data.mappers.VerificarNISDto;
 
 import java.io.BufferedReader;
