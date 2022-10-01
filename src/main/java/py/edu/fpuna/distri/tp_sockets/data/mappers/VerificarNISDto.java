@@ -4,20 +4,20 @@ import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
 
 public class VerificarNISDto {
     private String nis;
-    private  int idOperacion;
+    private  int tipoOperacion;
 
-    public int getIdOperacion() {
-        return idOperacion;
+    public int getTipoOperacion() {
+        return tipoOperacion;
     }
 
-    public void setIdOperacion(int idOperacion) {
-        this.idOperacion = idOperacion;
+    public void setTipoOperacion(int tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
     }
 
 
 
-    public VerificarNISDto(int idOperacion, String nis) {
-        this.idOperacion = idOperacion;
+    public VerificarNISDto(int tipoOperacion, String nis) {
+        this.tipoOperacion = tipoOperacion;
         this.nis = nis;
     }
     public String getNis() {

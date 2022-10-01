@@ -38,7 +38,7 @@ public class AppClientUDP {
             byte[] sendData = new byte[1024];
             byte[] receiveData = new byte[1024];
 
-            uiConsole.insertOperation();
+            uiConsole.insertOperation("UDP");
 
             int tipoOperacion = Integer.parseInt(inFromUser.readLine());
 
@@ -69,8 +69,6 @@ public class AppClientUDP {
 
                 uiConsole.sendData(IPAddress, puertoServidor, "UDP", respuesta);
 
-                clientOperacion.getRespuesta(tipoOperacionClientStrategy, respuesta);
-
             } catch (SocketTimeoutException ste) {
                 uiConsole.noResponse(IPAddress, puertoServidor, "UDP");
             }
@@ -98,14 +96,16 @@ public class AppClientUDP {
 
         if (tipoOperacion == 1) {
             strategy = new RegistrarConsumoClientStrategy();
+        } else if (tipoOperacion == 3) {
+            strategy = new EnviarOrdenClientStrategy();
         } else if (tipoOperacion == 4) {
             strategy = new EnviarOrdenClientStrategy();
         } else if (tipoOperacion == 5) {
             strategy = new ListarSuministroClientStrategy();
         } else if (tipoOperacion == 6) {
             strategy = new ListarSuministroClientStrategy();
-        }else if(tipoOperacion==2){
-            strategy=new VerificarNISClientStrategy();
+        } else if (tipoOperacion == 2) {
+            strategy = new VerificarNISClientStrategy();
         }
 
         return strategy;

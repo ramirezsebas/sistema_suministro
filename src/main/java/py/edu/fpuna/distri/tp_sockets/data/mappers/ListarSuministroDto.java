@@ -3,18 +3,18 @@ package py.edu.fpuna.distri.tp_sockets.data.mappers;
 import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
 
 public class ListarSuministroDto {
-    private int idOperacion;
+    private int tipoOperacion;
 
-    public ListarSuministroDto(int idOperacion) {
-        this.idOperacion = idOperacion;
+    public ListarSuministroDto(int tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
     }
 
-    public int getIdOperacion() {
-        return idOperacion;
+    public int getTipoOperacion() {
+        return tipoOperacion;
     }
 
-    public void setIdOperacion(int idOperacion) {
-        this.idOperacion = idOperacion;
+    public void setTipoOperacion(int tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
     }
 
     public static ListarSuministroDto fromJson(String json) {

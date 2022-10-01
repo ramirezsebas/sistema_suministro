@@ -39,7 +39,7 @@ public class AppClientTCP {
             PrintWriter out = new PrintWriter(mySocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(mySocket.getInputStream()));
 
-            uiConsole.insertOperation();
+            uiConsole.insertOperation("TCP");
 
             int tipoOperacion = Integer.parseInt(inFromUser.readLine());
 

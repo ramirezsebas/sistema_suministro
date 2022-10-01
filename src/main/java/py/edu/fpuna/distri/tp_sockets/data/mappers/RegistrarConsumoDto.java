@@ -3,12 +3,12 @@ package py.edu.fpuna.distri.tp_sockets.data.mappers;
 import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
 
 public class RegistrarConsumoDto {
-    int idOperacion;
+    int tipoOperacion;
     String nis;
     double consumo;
 
-    public RegistrarConsumoDto(int idOperacion, String nis, double consumo) {
-        this.idOperacion = idOperacion;
+    public RegistrarConsumoDto(int tipoOperacion, String nis, double consumo) {
+        this.tipoOperacion = tipoOperacion;
         this.nis = nis;
         this.consumo = consumo;
     }
@@ -21,12 +21,12 @@ public class RegistrarConsumoDto {
         return JsonUtil.toJson(this);
     }
 
-    public int getIdOperacion() {
-        return idOperacion;
+    public int getTipoOperacion() {
+        return tipoOperacion;
     }
 
-    public void setIdOperacion(int idOperacion) {
-        this.idOperacion = idOperacion;
+    public void setTipoOperacion(int tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
     }
 
     public String getNis() {

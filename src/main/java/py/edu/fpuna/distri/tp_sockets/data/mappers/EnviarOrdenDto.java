@@ -3,20 +3,20 @@ package py.edu.fpuna.distri.tp_sockets.data.mappers;
 import py.edu.fpuna.distri.tp_sockets.utils.JsonUtil;
 
 public class EnviarOrdenDto {
-    int idOperacion;
+    int tipoOperacion;
     String nis;
 
-    public EnviarOrdenDto(int idOperacion, String nis) {
-        this.idOperacion = idOperacion;
+    public EnviarOrdenDto(int tipoOperacion, String nis) {
+        this.tipoOperacion = tipoOperacion;
         this.nis = nis;
     }
 
-    public int getIdOperacion() {
-        return idOperacion;
+    public int getTipoOperacion() {
+        return tipoOperacion;
     }
 
-    public void setIdOperacion(int idOperacion) {
-        this.idOperacion = idOperacion;
+    public void setTipoOperacion(int tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
     }
 
     public String getNis() {

@@ -1,11 +1,11 @@
 package py.edu.fpuna.distri.tp_sockets.utils;
 
-
 public class KResponse<T> {
 
     Integer estado;
+    Integer tipoOperacion;
     String mensaje;
-    T dato;
+    T data;
 
     public KResponse() {
     }
@@ -26,18 +26,27 @@ public class KResponse<T> {
         this.mensaje = mensaje;
     }
 
-    public T getDato() {
-        return dato;
+    public Integer getTipoOperacion() {
+        return tipoOperacion;
     }
 
-    public void setDato(T dato) {
-        this.dato = dato;
+    public void setTipoOperacion(Integer tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
+    }
+
+    public T getDato() {
+        return data;
+    }
+
+    public void setDato(T data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
-        return "KResponse{" + "estado=" + estado + ", mensaje=" + mensaje + ", dato=" + dato + '}';
+        return "KResponse{" + "estado=" + estado + ", mensaje=" + mensaje + ", data=" + data + '}';
     }
+
     public String toJson() {
         return JsonUtil.toJson(this);
     }
