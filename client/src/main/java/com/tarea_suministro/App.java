@@ -21,25 +21,34 @@ import com.tarea_suministro.utils.UIConsole;
  */
 public class App {
     public static void main(String[] args) {
+
         if (args.length != 1) {
-            System.exit(-1);
+            System.out.println("Usage: java App <protocolo>");
+            System.exit(1);
         }
+        String protocolo = args[0].toLowerCase();
 
-        String protocolo = args[0];
-
-        // Check if protocolo is valid
         if (!protocolo.equals("tcp") && !protocolo.equals("udp")) {
             System.exit(-2);
         }
 
-        int puertoServidor = 9876;
-
-    }
-
-    private static void iniciarClienteUDP() {
         String direccionServidor = "127.0.0.1";
 
         int puertoServidor = 9876;
+
+        System.out.println("Iniciando cliente " + protocolo + "...");
+
+        if (protocolo.equals("udp")) {
+            System.out.println("Iniciando cliente UDP...");
+            iniciarClienteUDP(direccionServidor, puertoServidor);
+        } else {
+            System.out.println("Iniciando cliente TCP...");
+            iniciarClienteTCP(direccionServidor, puertoServidor);
+        }
+
+    }
+
+    private static void iniciarClienteUDP(String direccionServidor, int puertoServidor) {
 
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
@@ -111,27 +120,29 @@ public class App {
                 uiConsole.sendData(IPAddress, puertoServidor, "UDP", respuesta);
 
             } catch (SocketTimeoutException ste) {
+                System.err.println(ste.getMessage());
                 uiConsole.noResponse(IPAddress, puertoServidor, "UDP");
             }
             clientSocket.close();
 
         } catch (SocketException e) {
+            System.out.println("Error al crear el socket" + e.getMessage());
 
             e.printStackTrace();
         } catch (UnknownHostException e) {
+            System.out.println("Error al crear el socket" + e.getMessage());
             e.printStackTrace();
         } catch (IOException e) {
+            System.out.println("Error al crear el socket" + e.getMessage());
             e.printStackTrace();
         } catch (NumberFormatException e) {
+            System.out.println("Error al crear el socket" + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    private static void iniciarClienteTCP() {
+    private static void iniciarClienteTCP(String direccionServidor, int puertoServidor) {
         UIConsole uiConsole = new UIConsole();
-        String direccionServidor = "127.0.0.1";
-
-        int puertoServidor = 9876;
 
         BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
         try {

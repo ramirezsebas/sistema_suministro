@@ -16,29 +16,27 @@ if ($tipo -ne "CLIENT" -and $tipo -ne "SERVER") {
     exit 1
 }
 
-if($protocol -eq "TCP"){
-    if($tipo -eq "CLIENT"){
-        $xml = [xml](Get-Content pom-docker.xml)
-        $xml.project.build.pluginManagement.plugins.plugin.configuration.archive.manifest.mainClass = "py.edu.fpuna.distri.tp_sockets.tcp.AppClientTCP"
-        $xml.Save("pom-docker.xml")
-    }else{
-        $xml = [xml](Get-Content pom-docker.xml)
-        $xml.project.build.pluginManagement.plugins.plugin.configuration.archive.manifest.mainClass = "py.edu.fpuna.distri.tp_sockets.tcp.AppServerTCP"
-        $xml.Save("pom-docker.xml")
-    }
-}else{
-    if($tipo -eq "CLIENT"){
-        $xml = [xml](Get-Content pom-docker.xml)
-        $xml.project.build.pluginManagement.plugins.plugin.configuration.archive.manifest.mainClass = "py.edu.fpuna.distri.tp_sockets.udp.AppClientUDP"
-        $xml.Save("pom-docker.xml")
-    }else{
-        $xml = [xml](Get-Content pom-docker.xml)
-        $xml.project.build.pluginManagement.plugins.plugin.configuration.archive.manifest.mainClass = "py.edu.fpuna.distri.tp_sockets.udp.AppServerUDP"
-        $xml.Save("pom-docker.xml")
-    }
+if ($tipo -eq "CLIENT") {
+    cd client
+}
+if($tipo -eq "SERVER") {
+    cd server
 }
 
 
-mvn clean install -U
-mvn clean package
-java -jar target/sistema-suministro-1.0-SNAPSHOT.jar
+
+
+if ($protocolo -eq "TCP") {
+    echo "TCP"
+    mvn clean install -U
+    mvn clean package
+    java -jar target\sistema-suministro-1.0-SNAPSHOT-jar-with-dependencies.jar tcp
+}
+if($protocolo -eq "UDP"){
+    echo "UDP"
+    mvn clean install -U
+    mvn clean package
+    java -jar target\sistema-suministro-1.0-SNAPSHOT-jar-with-dependencies.jar udp
+}
+
+cd ../

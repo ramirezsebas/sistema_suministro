@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="windows-1252" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2022-10-02T00:00:10.398536900Z</date>
+  <millis>1664668810398</millis>
+  <nanos>536900</nanos>
+  <sequence>0</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>Servidor escuchando en puerto: 9876</message>
+</record>
+<record>
+  <date>2022-10-02T00:00:10.447920800Z</date>
+  <millis>1664668810447</millis>
+  <nanos>920800</nanos>
+  <sequence>1</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>Esperando peticion de algun NIS... </message>
+</record>
+<record>
+  <date>2022-10-02T00:00:58.422234500Z</date>
+  <millis>1664668858422</millis>
+  <nanos>234500</nanos>
+  <sequence>2</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-02T00:00:58.424283300Z</date>
+  <millis>1664668858424</millis>
+  <nanos>283300</nanos>
+  <sequence>3</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>Request del NIS: {"tipoOperacion":4,"nis":"1","consumo":0.0}</message>
+</record>
+<record>
+  <date>2022-10-02T00:00:58.481503800Z</date>
+  <millis>1664668858481</millis>
+  <nanos>503800</nanos>
+  <sequence>4</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>Se envio la respuesta al NIS:1</message>
+</record>
+<record>
+  <date>2022-10-02T00:00:58.483506900Z</date>
+  <millis>1664668858483</millis>
+  <nanos>506900</nanos>
+  <sequence>5</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>________________________________________________</message>
+</record>
+<record>
+  <date>2022-10-02T00:00:58.491502600Z</date>
+  <millis>1664668858491</millis>
+  <nanos>502600</nanos>
+  <sequence>6</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>{"estado":0,"tipoOperacion":3,"mensaje":"OK","data":{"nis":"1","usuario":"Juan Pereria","consumo":1234.56,"estado":"ACTIVO"}}</message>
+</record>
+<record>
+  <date>2022-10-02T00:01:00.502563500Z</date>
+  <millis>1664668860502</millis>
+  <nanos>563500</nanos>
+  <sequence>7</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>Cerrando conexion con el cliente</message>
+</record>
+<record>
+  <date>2022-10-02T00:01:00.506704200Z</date>
+  <millis>1664668860506</millis>
+  <nanos>704200</nanos>
+  <sequence>8</sequence>
+  <logger>class com.tarea_suministro.App</logger>
+  <level>INFO</level>
+  <class>com.tarea_suministro.App</class>
+  <method>iniciarServidorTCP</method>
+  <thread>1</thread>
+  <message>Esperando peticion de algun NIS... </message>
+</record>

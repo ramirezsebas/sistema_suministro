@@ -1,26 +1,38 @@
-# if [ $# -lt 2 ]; then
-#     echo "Uso: $0 <protocolo> <cliente o servidor> ..."
-#     exit 1
-# fi
+if [ $# -lt 2 ]; then
+    echo "Uso: $0 <protocolo> <cliente o servidor> ..."
+    exit 1
+fi
 
-# protocolo=$(echo $1 | tr '[:lower:]' '[:upper:]')
+protocolo=$(echo $1 | tr '[:lower:]' '[:upper:]')
 
-# if [ $protocolo != "TCP" ] && [ $protocolo != "UDP" ]; then
-#     echo "Protocolo invalido"
-#     exit 1
-# fi
+if [ $protocolo != "TCP" ] && [ $protocolo != "UDP" ]; then
+    echo "Protocolo invalido"
+    exit 1
+fi
 
-# tipo=$(echo $2 | tr '[:lower:]' '[:upper:]')
+tipo=$(echo $2 | tr '[:lower:]' '[:upper:]')
 
-# if [ $tipo != "CLIENTE" ] && [ $tipo != "SERVIDOR" ]; then
-#     echo "Tipo invalido"
-#     exit 1
-# fi
-
-
+if [ $tipo != "CLIENTE" ] && [ $tipo != "SERVIDOR" ]; then
+    echo "Tipo invalido"
+    exit 1
+fi
 
 
+# if its client navigate to client folder
+if [ $tipo = "CLIENTE" ]; then
+    cd cliente
+else
+    cd servidor
+fi
+   
 
+cd client
 mvn clean install -U
 mvn clean package
-java -jar target/sistema-suministro-1.0-SNAPSHOT.jar
+
+# if its tcp execute tcp client
+if [ $protocolo = "TCP" ]; then
+    java -jar cliente-1.0-SNAPSHOT-jar-with-dependencies.jar tcp
+else
+    java -jar cliente-1.0-SNAPSHOT-jar-with-dependencies.jar upd
+fi
