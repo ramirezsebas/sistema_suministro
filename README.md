@@ -51,6 +51,46 @@ Dependiendo del SO en la que estas trabajando, se debe ejecutar el siguiente com
 sh init.sh <protocolo> <client o server>
 ```
 
+### Con Docker(facilita correr varios clientes)
+Para correr la imagen:
+```console
+docker compose -f docker-compose-Client-Server.yml up --build --scale client=1
+```
+* -f es para indicar el archivo docker-compose
+* --build es para construir la imagen en el caso de que esta no se haya construido
+* --scale client=n indica la cantidad de veces que se repetira el servicio client especificado en el docker-compose-Client-Server.yml, en otras palabras n es la cantidad de clientes que se desea tener en el proyecto
+
+Para correr una terminal de los contenedores clientes generados:
+```console
+sudo docker exec -it sistema_suministro-server-1 sh
+```
+
+Para correr una terminal de los contenedores clientes generados:
+```console
+sudo docker exec -it sistema_suministro-client-1 sh
+```
+En el caso de haber especificado mas clientes, para acceder a estos ejecutar con las siguientes variantes: sistema_suministro-client-2, sistema_suministro-client-3, ..., sistema_suministro-client-n
+
+Una vez abierta la terminal del contenedor, podemos levantar los proyectos con el siguiente comando, ya sea para el cliente o el servidor:
+Para TCP
+```console
+java -jar target\sistema-suministro-1.0-SNAPSHOT-jar-with-dependencies.jar tcp
+```
+Para UDP
+```console
+java -jar target\sistema-suministro-1.0-SNAPSHOT-jar-with-dependencies.jar udp
+```
+
+O tambien podemos usar las variables de entorno que retornan estos comandos:
+```console
+$runtcp
+```
+```console
+$runudp
+```
+ambas variables deben llevar el simbolo $(dolar) para que sean ejecutadas en consola
+
+
 ## Documentacion de API
 
 ### Servicio ofrecidos por el protocolo UDP
