@@ -35,9 +35,21 @@ Debe implementar los servicios del Servidor Departamental.
 Cuenta con una BD en memoria, especificamente utilizamos un HashMap para persistir la informacion.
 Una vez levantado el servidor se pobla la BD.
 
-## Cómo compilar y ejecutar los componentes de cada servidor
+## Cómo compilar y ejecutar los componentes de cada servidor y cliente
 
-## Cómo compilar y ejecutar el/los clientes
+Dependiendo del SO en la que estas trabajando, se debe ejecutar el siguiente comando:
+
+### Windows
+
+```ps1
+./init.ps1 <protocolo> <client o server>
+```
+
+### Linux
+
+```bash
+sh init.sh <protocolo> <client o server>
+```
 
 ## Documentacion de API
 
