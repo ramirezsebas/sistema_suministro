@@ -5,8 +5,12 @@ services:
   server:
     build: 
       dockerfile: DockerfileServer
+    env_file:
+      - ./.env.file
     command: /bin/sh -c "while sleep 1000; do :; done"
   client:
     build:
       dockerfile: DockerfileClient
+    env_file:
+      - ./.env.file
     command: /bin/sh -c "while sleep 1000; do :; done"
