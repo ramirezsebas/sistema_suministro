@@ -26,13 +26,14 @@ else
 fi
    
 
-cd client
-mvn clean install -U
-mvn clean package
 
 # if its tcp execute tcp client
 if [ $protocolo = "TCP" ]; then
-    java -jar cliente-1.0-SNAPSHOT-jar-with-dependencies.jar tcp
+    mvn clean install -U
+    mvn clean package
+    java -jar target\sistema-suministro-1.0-SNAPSHOT-jar-with-dependencies.jar tcp
 else
-    java -jar cliente-1.0-SNAPSHOT-jar-with-dependencies.jar upd
+    mvn clean install -U
+    mvn clean package
+    java -jar target\sistema-suministro-1.0-SNAPSHOT-jar-with-dependencies.jar udp
 fi
